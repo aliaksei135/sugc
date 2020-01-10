@@ -307,5 +307,6 @@ SOCIALACCOUNT_ADAPTER = "sugc.users.adapters.SocialAccountAdapter"
 INSTALLED_APPS += ["compressor"]
 STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 
-WAGTAIL_SITE_NAME = 'SUGC Site'
+# wagtail CMS
 # ------------------------------------------------------------------------------
+WAGTAIL_SITE_NAME = 'SUGC Site'

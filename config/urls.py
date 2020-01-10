@@ -16,7 +16,7 @@ urlpatterns = [
                   path("users/", include("sugc.users.urls", namespace="users")),
                   path("accounts/", include("allauth.urls")),
                   # CMS
-                  path("blog/", include("blog.urls", namespace="blog")),
+                  path("blog/", include("blog.urls")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

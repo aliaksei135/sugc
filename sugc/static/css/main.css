@@ -2213,7 +2213,7 @@ header .icon.circled {
 }
 
 #header h1 {
-  color: #aaa;
+  color: #aaff11;
   font-size: 3em;
   line-height: 1em;
 }
@@ -2284,14 +2284,16 @@ body.homepage.is-preload #header:after {
 /* Nav */
 
 #nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   text-align: center;
   padding: 1.5em 0 1.5em 0;
-  z-index: 1;
+  z-index: 99;
+  color: #fff;
   overflow: hidden;
+  display: block;
 }
 
 #nav > ul {

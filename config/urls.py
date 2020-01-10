@@ -7,16 +7,26 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
                   path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-                  path(
-                      "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-                  ),
+
+                  path("about/", include([
+                      path("typical-day", TemplateView.as_view(template_name="pages/typical_day.html"),
+                           name="typical_day"),
+                      path("what-is-gliding", TemplateView.as_view(template_name="pages/what_is_gliding.html"),
+                           name="what_is_gliding"),
+                      path("join", TemplateView.as_view(template_name="pages/joining.html"), name='joining'),
+                      path("expeditions", TemplateView.as_view(template_name="pages/expeditions.html"),
+                           name="expeditions"),
+                      path("faq", TemplateView.as_view(template_name="pages/faq.html"), name="faq"),
+                      path("", TemplateView.as_view(template_name="pages/about.html"), name="about"),
+                  ])),
+
                   # Django Admin, use {% url 'admin:index' %}
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("users/", include("sugc.users.urls", namespace="users")),
                   path("accounts/", include("allauth.urls")),
                   # CMS
-                  path("blog/", include("blog.urls")),
+                  path("blog/", include("sugc.blog.urls", namespace='blog')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

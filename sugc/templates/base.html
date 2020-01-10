@@ -28,29 +28,19 @@
 <body class="homepage is-preload">
 <div id="page-wrapper">
 
-  <!-- Header -->
-  <div id="header">
-    {% block header %}
-      <!-- Inner -->
-      <div class="inner">
-        <header>
-          <h1><a href="{% url 'home' %}" id="logo">Southampton University Gliding Club</a></h1>
-        </header>
-      </div>
-    {% endblock header %}
-  </div>
-
-  <div id="nav-above">
+  <div id="navbar">
     <!-- Nav -->
-    <nav id="nav">
+    <nav id="nav" class="{% block navbar_classes %}{% endblock navbar_classes %}">
       <ul>
         {% include '_navbar.html' %}
       </ul>
     </nav>
   </div>
 
-  {% block content %}
+  {% block header %}
+  {% endblock header %}
 
+  {% block content %}
   {% endblock content %}
   <!-- Footer -->
   <div id="footer">

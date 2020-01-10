@@ -1,62 +1,27 @@
-{% load static i18n compress %}<!DOCTYPE html><!DOCTYPE HTML>
-<html lang="en">
-<head>
-  <title>{% block title %}SUGC Website{% endblock title %}</title>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-  <meta name="description" content="Southampton University Gliding Club">
-  <meta name="author" content="Aliaksei Pilko">
+{% extends 'base.html' %}
 
-  <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
-
-  {% block css %}
-
-    <!-- Your stuff: Third-party CSS libraries go here -->
-    {% compress css %}
-      <!-- This file stores project-specific CSS -->
-      <link href="{% static 'css/project.css' %}" rel="stylesheet">
-      <link href="{% static 'css/main.css' %}" rel="stylesheet"/>
-      <noscript>
-        <link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>
-      </noscript>
-
-    {% endcompress %}
-  {% endblock %}
-</head>
-
-
-<body class="homepage is-preload">
-<div id="page-wrapper">
-
+{% block header %}
   <!-- Header -->
   <div id="header">
-    {% block header %}
-      <!-- Inner -->
-      <div class="inner">
-        <header>
-          <h1><a href="{% url 'home' %}" id="logo">Southampton University Gliding Club</a></h1>
-        </header>
-      </div>
-    {% endblock header %}
-
-    <!-- Nav -->
-    <nav id="nav">
-      <ul>
-        {% include '_navbar.html' %}
-      </ul>
-    </nav>
-
+    <!-- Inner -->
+    <div class="inner">
+      <header>
+        <h1><a href="{% url 'home' %}" id="logo">Southampton University Gliding Club</a></h1>
+      </header>
+    </div>
   </div>
+{% endblock header %}
+{% block navbar_classes %}transparent{% endblock navbar_classes %}
 
-  {% block content %}
-    <!-- Carousel -->
-    <section class="carousel">
-      <div class="reel">
+{% block content %}
+  <!-- Carousel -->
+  <section class="carousel">
+    <div class="reel">
 
-        <article>
-          <a href="#" class="image featured"><img src="images/pic01.jpg" alt=""/></a>
-          <header>
-            <h3><a href="#">Pulvinar sagittis congue</a></h3>
+      <article>
+        <a href="#" class="image featured"><img src="images/pic01.jpg" alt=""/></a>
+        <header>
+          <h3><a href="#">Pulvinar sagittis congue</a></h3>
           </header>
           <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
         </article>
@@ -208,17 +173,19 @@
       </section>
 
     </div>
-  {% endblock content %}
+{% endblock content %}
+
+{% block footer %}
   <!-- Footer -->
   <div id="footer">
-    {% block footer %}
-      <div class="container">
-        <div class="row">
 
-          <!-- Tweets -->
-          <section class="col-4 col-12-mobile">
-            <header>
-              <h2 class="icon brands fa-twitter circled"><span class="label">Tweets</span></h2>
+    <div class="container">
+      <div class="row">
+
+        <!-- Tweets -->
+        <section class="col-4 col-12-mobile">
+          <header>
+            <h2 class="icon brands fa-twitter circled"><span class="label">Tweets</span></h2>
             </header>
             <ul class="divided">
               <li>
@@ -349,32 +316,5 @@
 
         </div>
       </div>
-    {% endblock footer %}
   </div>
-
-</div>
-{% block javascript %}
-
-  <!-- Vendor dependencies bundled as one file-->
-  {% compress js %}
-    <script src="{% static 'js/vendors.js' %}"></script>
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
-    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
-    <script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
-    <script src="{% static 'js/browser.min.js' %}"></script>
-    <script src="{% static 'js/breakpoints.min.js' %}"></script>
-  {% endcompress %}
-
-
-  <!-- place project specific Javascript in this file -->
-  {% compress js %}
-    <script src="{% static 'js/project.js' %}"></script>
-    <script src="{% static 'js/util.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-  {% endcompress %}
-
-{% endblock javascript %}
-
-</body>
-</html>
+{% endblock footer %}

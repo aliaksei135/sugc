@@ -47,7 +47,13 @@
     $('.scrolly').scrolly();
 
     // Nav.
-
+    // $window.scroll(function () {
+    //     if ($window.scrollTop() >= 50) {
+    //         $('#nav').addClass("opaque").removeClass("transparent");
+    //     } else {
+    //         $('#nav').removeClass("opaque").addClass("transparent");
+    //     }
+    // });
     // Button.
     $(
         '<div id="navButton">' +

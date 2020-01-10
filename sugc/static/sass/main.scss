@@ -7,11 +7,10 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600');
 @import url('fontawesome-all.min.css');
 
-/*
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+:root {
+  --sugc-blue-color: #093162;
+  --sugc-gold-color: #ffbe4a;
+}
 
 // Breakpoints.
 
@@ -717,7 +716,7 @@ button,
 
 #header {
   position: relative;
-  background-image: url('../../../../../Libraries/Downloads/html5up-helios/images/header.jpg');
+  background-image: url('../images/header.jpg');
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
@@ -820,17 +819,35 @@ body.homepage {
   }
 }
 
-/* Nav */
+.page-title {
+  position: relative;
+  padding-top: 5em;
+  width: 100%;
+  text-align: center;
+  height: 3em;
+  color: #fff;
+  z-index: 2;
+}
 
+/* Nav */
 #nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   text-align: center;
   padding: 1.5em 0 1.5em 0;
-  z-index: 1;
+  z-index: 100;
+  color: #fff;
   overflow: hidden;
+
+  &.transparent {
+    background: transparent;
+  }
+
+  &.opaque {
+    background: var(--sugc-blue-color);
+  }
 
   > ul {
     line-height: 0px;

@@ -821,7 +821,7 @@ body.homepage {
 
 .page-title {
   position: relative;
-  padding-top: 5em;
+  padding-top: 6em;
   width: 100%;
   text-align: center;
   height: 3em;
@@ -1010,6 +1010,29 @@ body.homepage {
   section:first-of-type {
     padding-top: 2em;
   }
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
 }
 
 /* Footer */

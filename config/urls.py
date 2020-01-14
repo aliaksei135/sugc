@@ -16,7 +16,7 @@ urlpatterns = [
                       path("join", TemplateView.as_view(template_name="pages/joining.html"), name='joining'),
                       path("expeditions", TemplateView.as_view(template_name="pages/expeditions.html"),
                            name="expeditions"),
-                      path("faq", TemplateView.as_view(template_name="pages/faq.html"), name="faq"),
+                      path("faq", TemplateView.as_view(template_name="about_pages/faq.html"), name="faq"),
                       path("", TemplateView.as_view(template_name="pages/about.html"), name="about"),
                   ])),
 

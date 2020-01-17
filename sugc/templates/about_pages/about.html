@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block page_title %}About Us{% endblock page_title %}
+
+{% block content %}
+  <h1 class="mt-4 mb-3">About Us</h1>
+
+  <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
+
+  <div class="row">
+    <p>
+      SUGC is the Southampton University Gliding Club. We are here to offer the best quality gliding at the best
+      price, while having a great day all in conjunction with each other! The Club re-established in 2015 and over
+      1000 tremendous flights have occurred since! SUGC glides at Shalbourne, which there is a link to on the
+      homepage. Gliding is suitable for anyone from any background from any degree! No knowledge needed! We have
+      weekly socials of great success along with some fantastic trips with other Uni’s and independent trips!
+    </p>
+
+    <h3>Who is SUGC for?</h3>
+    <p>SUGC is a club that can give you a unique experience unlike any other. We are a friendly club that welcomes
+      everyone. Beginners are helped to achieve their ambitions while experienced pilots will not be held back! Once
+      solo, some pilots like to fly cross country, some like to fly upside down, and some just like to potter around
+      the sky for a bit of peace and quiet. Whatever your goals, this is the place to be!</p>
+    <p>We allow any Southampton University students to join, regardless of course, age, or anything else. Of course,
+      there are some restrictions beyond our control, but if you are over 14 years old and have no medical conditions
+      which prevent you getting a driving license, you can fly solo! Many disabilities can also be accommodated in
+      gliding. Check out our <a href="{% url 'faq' %}">FAQ</a> for more info.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Experience</h4>
+          <p class="card-text">
+            Never even heard of gliding? Come and do a trial flight with us and see what all the fuss it about!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Train</h4>
+          <p class="card-text">
+            Most of our members join with zero experience, and start by training for their first solo flight!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Achieve</h4>
+          <p class="card-text">
+            Solo is just the start of the journey. Achieve badges or set your own goals.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Compete</h4>
+          <p class="card-text">
+            All of our members have the opportunity to compete at the inter-unis.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock content %}

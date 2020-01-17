@@ -41,8 +41,24 @@
     <li class="nav-item">
       <a class="nav-link" href="blog/">Blog</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-    </li>
+
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:detail' user.username %}">Profile</a>
+      </li>
+      {% if user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin' %}">Staff</a>
+        </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+      </li>
+    {% endif %}
+
   </ul>
 </div>

@@ -11,7 +11,7 @@ APPS_DIR = ROOT_DIR.path("sugc")
 
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR.path(".env")))
@@ -86,6 +86,7 @@ THIRD_PARTY_APPS = [
     'wagtail.core',
     'modelcluster',
     'taggit',
+    'bootstrap_datepicker_plus',
 ]
 
 LOCAL_APPS = [

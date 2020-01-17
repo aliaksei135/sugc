@@ -1,17 +1,3 @@
-{#<li><a href="{% url 'home' %}">Home</a></li>#}
-{#<li>#}
-{#  <a href="{% url 'about' %}">About SUGC</a>#}
-{#  <ul>#}
-{#    <li><a href="{% url 'typical_day' %}">A Typical Day</a></li>#}
-{#    <li><a href="{% url 'expeditions' %}">Expeditions</a></li>#}
-{#    <li><a href="{% url 'joining' %}">How to Join</a></li>#}
-{#    <li><a href="{% url 'faq' %}">FAQs</a></li>#}
-{#  </ul>#}
-{#</li>#}
-{#<li><a href="{% url 'what_is_gliding' %}">What's Gliding?</a></li>#}
-{#<li><a href="/blog/">Blog</a></li>#}
-{#<li><a href="{% url 'account_login' %}">Login</a></li>#}
-
 <a class="navbar-brand" href="{% url 'home' %}">SUGC</a>
 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +34,7 @@
       </li>
       {% if user.is_staff %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'admin' %}">Staff</a>
+          <a class="nav-link" href="{% url 'admin:index' %}">Staff</a>
         </li>
       {% endif %}
       <li class="nav-item">

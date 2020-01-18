@@ -4,14 +4,39 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
+from django.views.generic.edit import ModelFormMixin
+
+from .forms import UserAvailabilityForm
+from .models import Availability
 
 User = get_user_model()
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, ModelFormMixin, DetailView):
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
+    form_class = UserAvailabilityForm
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_success_url(self):
+        return reverse("users:detail", kwargs={"username": self.request.user.username})
+
+    def form_valid(self, form):
+        avail = Availability(date_available=form.cleaned_data['date_available'])
+        avail.save()
+        self.object.availability.add(avail)
+        messages.add_message(
+            self.request, messages.INFO, _("Availability updated")
+        )
+        return super().form_valid(form)
 
 
 user_detail_view = UserDetailView.as_view()

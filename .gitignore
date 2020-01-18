@@ -338,4 +338,5 @@ sugc/media/
 
 .pytest_cache/
 
+.idea/terminal.xml
 

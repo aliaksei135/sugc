@@ -1,31 +1,63 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static bootstrap4 %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
   <div class="container">
-
-    <div class="row">
-      <div class="col-sm-12">
+    {% bootstrap_messages %}
+    <div class="row mt-4">
+      <div class="col-sm-10">
 
         <h2>{{ object.username }}</h2>
         {% if object.name %}
           <p>{{ object.name }}</p>
         {% endif %}
+        {% if object.email %}
+          <p>{{ object.email }}</p>
+        {% endif %}
+      </div>
+
+      <div class="col-sm-2">
+        <img src="
+          {% if object.profile_img %}
+            {{ object.profile_img }}
+          {% else %}
+            {% static 'images/profile_default' %}
+          {% endif %}
+          " class="img-circle img-responsive" alt="Profile Image"/>
       </div>
     </div>
 
     {% if object == request.user %}
       <!-- Action buttons -->
-      <div class="row">
+      <div class="row mt-4">
 
-        <div class="col-sm-12">
-          <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-          <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-          <!-- Your Stuff: Custom user template urls -->
+        <div class="col-sm-6">
+          <form class="form" method="post">
+            {% bootstrap_form_errors form %}
+            <div class="form-group">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                <input type="submit" value="Add" class="submit btn btn-primary" role="button">
+              {% endbuttons %}
+            </div>
+          </form>
         </div>
 
+        <div class="col-sm-6">
+          <table class="table">
+            <thead></thead>
+            <tbody>
+            {% for avail in user.availability.all %}
+              <tr>
+                <td>{{ avail|date }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- End Action buttons -->
     {% endif %}
@@ -33,4 +65,9 @@
 
   </div>
 {% endblock content %}
+
+{% block js %}
+  {% bootstrap_javascript jquery='full' %}
+  {{ form.media }}
+{% endblock js %}
 

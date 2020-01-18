@@ -26,7 +26,7 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-gb"
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
@@ -87,11 +87,12 @@ THIRD_PARTY_APPS = [
     'modelcluster',
     'taggit',
     'bootstrap_datepicker_plus',
+    'bootstrap4'
 ]
 
 LOCAL_APPS = [
     "sugc.users.apps.UsersConfig",
-    "sugc.blog.apps.BlogConfig"
+    "sugc.blog.apps.BlogConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -312,3 +313,7 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # wagtail CMS
 # ------------------------------------------------------------------------------
 WAGTAIL_SITE_NAME = 'SUGC Site'
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

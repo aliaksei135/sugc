@@ -8,7 +8,8 @@ from .validators import not_in_past_validator
 
 class Availability(models.Model):
     date_added = models.DateTimeField(_("Time Added"), auto_now_add=True)
-    date_available = models.DateField(_("Available"), blank=False, null=False, validators=[not_in_past_validator], )
+    date_available = models.DateField(_("Available"), blank=False, null=False, validators=[not_in_past_validator],
+                                      unique=True)
 
     class Meta:
         verbose_name = _("Available Day")

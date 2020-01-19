@@ -21,6 +21,8 @@ urlpatterns = [
                   ])),
 
                   # Django Admin, use {% url 'admin:index' %}
+                  path('jet/', include('jet.urls', 'jet')),
+                  path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("users/", include("sugc.users.urls", namespace="users")),

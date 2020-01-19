@@ -25,3 +25,19 @@ body {
 .portfolio-item {
   margin-bottom: 30px;
 }
+
+.sugc-blue {
+  color: #093162 !important;
+}
+
+.sugc-gold {
+  color: #ffbe4a !important;
+}
+
+.bg-sugc-blue {
+  background: #093162 !important;
+}
+
+.bg-sugc-gold {
+  background: #ffbe4a !important;
+}

@@ -69,32 +69,37 @@ DJANGO_APPS = [
     "django.contrib.admin",
 ]
 THIRD_PARTY_APPS = [
+    'wagtail.core',
+    'wagtail.admin',
+    'wagtail.documents',
+    'wagtail.snippets',
+    'wagtail.users',
+    'wagtail.images',
+    'wagtail.embeds',
+    'wagtail.search',
+    'wagtail.sites',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.sitemaps',
+    'wagtail.contrib.routable_page',
+    'taggit',
+    'colorful',
+    'modelcluster',
+    'django_social_share',
+    'puput',
     "crispy_forms",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework",
     "django_celery_beat",
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail.core',
-    'modelcluster',
-    'taggit',
     'bootstrap_datepicker_plus',
     'bootstrap4',
 ]
 
 LOCAL_APPS = [
     "sugc.users.apps.UsersConfig",
-    "sugc.blog.apps.BlogConfig",
+    "sugc.blog.apps.BlogConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -154,6 +159,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
 ]
 
 # STATIC
@@ -314,7 +320,8 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 
 # wagtail CMS
 # ------------------------------------------------------------------------------
-WAGTAIL_SITE_NAME = 'SUGC Site'
+WAGTAIL_SITE_NAME = 'SUGC Blog'
+# PUPUT_AS_PLUGIN = True
 
 BOOTSTRAP4 = {
     'include_jquery': True,

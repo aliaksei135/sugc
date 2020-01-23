@@ -1,12 +1,10 @@
-from django.urls import include, path
+from django.urls import path, include
 
-from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.core import urls as wagtail_urls
-from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.admin import urls as wt_admin_urls
+from wagtail.core import urls as wt_urls
 
-app_name = 'blog'
+app_name = "blog"
 urlpatterns = [
-    path("", include(wagtail_urls), name='main'),
-    path("editors/", include(wagtailadmin_urls), name='editors'),
-    path("docs/", include(wagtaildocs_urls), name='docs'),
+    path("editors/", include(wt_admin_urls), name="editors"),
+    path("", include(wt_urls), name="index"),
 ]

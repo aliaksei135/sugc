@@ -1,39 +1,28 @@
 from django.db import models
-from wagtail.admin.edit_handlers import MultiFieldPanel, StreamFieldPanel
+from django.utils.translation import ugettext_lazy as _
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField
-from wagtail.core.models import Page, Orderable
+from wagtail.core.models import Page
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.search import index
 
 
-class BlogPage(Page):
-    template = 'blog/blog.html'
+class BlogPost(Page):
+    author = models.CharField(_("Author"), max_length=255)
 
-    # DB fields
-    post_date = models.DateField("Post Date", auto_now_add=True, editable=False)
-    author = models.CharField("Author", max_length=255, blank=False)
-    # title = models.CharField("Title", max_length=255, blank=False)
     body = StreamField([
-        ('heading', blocks.CharBlock(classname='title')),
+        ('heading', blocks.CharBlock(label='Heading', max_length=255)),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('quote', blocks.BlockQuoteBlock())
+        ('image', ImageChooserBlock())
     ])
 
-    # Search
-    search_fields = Page.search_fields + [
-        # index.SearchField('title'),
-        index.FilterField('author'),
-        index.FilterField('post_date'),
-    ]
-
-    # Editors
     content_panels = Page.content_panels + [
-        # FieldPanel('title'),
+        FieldPanel('author'),
         StreamFieldPanel('body'),
     ]
 
-    promote_panels = Page.promote_panels + [
-        MultiFieldPanel(Page.promote_panels, "Common Page Configuration"),
-    ]
+    template = 'blog-post.html'
+
+
+class BlogIndex(Page):
+    template = 'blog-index.html'

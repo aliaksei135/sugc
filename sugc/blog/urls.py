@@ -5,6 +5,6 @@ from wagtail.core import urls as wt_urls
 
 app_name = "blog"
 urlpatterns = [
-    path("editors/", include(wt_admin_urls), name="editors"),
-    path("", include(wt_urls), name="index"),
+    path("editors/", include(wt_admin_urls), name="blog_editors"),
+    path("", include(wt_urls), name="blog_index"),
 ]

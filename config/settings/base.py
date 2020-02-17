@@ -86,7 +86,6 @@ THIRD_PARTY_APPS = [
     'colorful',
     'modelcluster',
     'django_social_share',
-    'puput',
     "crispy_forms",
     "allauth",
     "allauth.account",
@@ -99,11 +98,11 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sugc.users.apps.UsersConfig",
-    "sugc.blog.apps.BlogConfig"
+    "sugc.blog"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------

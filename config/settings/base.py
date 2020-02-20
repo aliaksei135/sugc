@@ -98,7 +98,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sugc.users.apps.UsersConfig",
-    "sugc.blog"
+    "puput"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

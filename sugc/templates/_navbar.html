@@ -1,4 +1,4 @@
-{% load static %}
+{% load static wagtailcore_tags %}
 <a class="navbar-brand" href="{% url 'home' %}">
   <img src="{% static 'images/icon.webp' %}" width="80" height="59" class="d-inline-block align-top" alt="">
 </a>
@@ -28,7 +28,7 @@
       <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="blog/">Blog</a>
+      <a class="nav-link" href="#">Blog</a>
     </li>
 
     {% if user.is_authenticated %}

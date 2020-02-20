@@ -20,7 +20,10 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
-    profile_img = models.FileField(upload_to='user_media', default='images/profile_default.jpg')
+    profile_img = models.ImageField(upload_to='user_media/', default='images/profile_default.jpg')
+
+    waiting_list_position = models.IntegerField(_("Waiting List Position"), default=0)
+    has_susu_membership = models.BooleanField(_("Has SUSU Membership?"), default=False)
 
     is_solo = models.BooleanField(_("Solo?"), default=False)
     is_bronze = models.BooleanField(_("Bronze?"), default=False)

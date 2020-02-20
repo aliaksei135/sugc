@@ -98,6 +98,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sugc.users.apps.UsersConfig",
+    "sugc",
     "puput"
     # Your stuff: custom apps go here
 ]

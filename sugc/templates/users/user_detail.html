@@ -21,7 +21,7 @@
       <div class="col-sm-2">
         <img src="
           {% if object.profile_img %}
-            {{ object.profile_img }}
+            {{ object.profile_img.url }}
           {% else %}
             {% static 'images/profile_default' %}
           {% endif %}
@@ -32,42 +32,78 @@
     <br>
 
     {% if object == request.user %}
-      <h2>My Availability</h2>
-      <div class="row mt-3">
+      {% if object.waiting_list_position > 0 %}
+        <h3>You are #{{ object.waiting_list_position }} on the waiting list</h3>
+      {% elif not object.has_susu_membership %}
+        <h3>Please ensure you have purchased the correct SUSU membership <a
+                href="https://www.susu.org/groups/sugc#fees">here</a></h3>
+        <p>If you have already bought membership, please bare with us, we have to check each membership manually!</p>
+      {% else %}
+        <h2>My Availability</h2>
+        <div class="row mt-3">
 
-        <div class="col-sm-6">
-          <form class="form" method="post">
-            {% bootstrap_form_errors form %}
-            <div class="form-group">
-              {% csrf_token %}
-              {% bootstrap_form form %}
-              {% buttons %}
-                <input type="submit" value="Add" class="submit btn btn-primary" role="button">
-              {% endbuttons %}
-            </div>
-          </form>
-        </div>
+          <div class="col-sm-6">
+            <form class="form" method="post">
+              {% bootstrap_form_errors form %}
+              <div class="form-group">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                  <input type="submit" value="Add" class="submit btn btn-primary" role="button">
+                {% endbuttons %}
+              </div>
+            </form>
+          </div>
 
-        <div class="col-sm-6">
-          <h3>Current Availability</h3>
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">Available</th>
-              <th scope="col">Availability Added On</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for avail in user.availability.all %}
+          <div class="col-sm-6">
+            <h3>Current Availability</h3>
+            <table class="table">
+              <thead>
               <tr>
-                <td>{{ avail.date_available|date }}</td>
-                <td>{{ avail.date_added|date }}</td>
+                <th scope="col">Available</th>
+                <th scope="col">Availability Added On</th>
               </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+              {% for avail in user.availability.all %}
+                <tr>
+                  <td>{{ avail.date_available|date }}</td>
+                  <td>{{ avail.date_added|date }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+
+        <div class="row mt-3">
+          <h3>My Flights</h3>
+          <div class="col-sm-12">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Aircraft</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Pilot Capacity</th>
+                <th scope="col">Launch Fail?</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for flight in user.flights.all %}
+                <tr>
+                  <td>{{ flight.date|date }}</td>
+                  <td>{{ flight.aircraft.registration }}</td>
+                  <td>{{ flight.duration }}</td>
+                  <td>{{ flight.capacity }}</td>
+                  <td>{{ flight.is_launch_failure }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endif %}
     {% endif %}
 
 

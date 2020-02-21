@@ -87,10 +87,10 @@ class Flight(models.Model):
     date = models.DateField(_("Flight Date"), null=False, blank=False)
     aircraft = models.ForeignKey(Aircraft, on_delete=models.CASCADE)
 
-    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='flights')
 
     capacity = models.CharField(_("Pilot Capacity"), choices=PILOT_CAPACITY_CHOICES, default='P2', max_length=32)
-    duration = models.IntegerField(_("Flight Duration"), null=False, blank=False)
+    duration = models.IntegerField(_("Flight Duration [mins]"), null=False, blank=False)
     is_train_launch_failure = models.BooleanField(_("TLF?"), default=False)
     is_real_launch_failure = models.BooleanField(_("RLF?"), default=False)
 

@@ -18,7 +18,10 @@ class UserChangeForm(forms.UserChangeForm):
 
 class UserCreationForm(forms.UserCreationForm):
     error_message = forms.UserCreationForm.error_messages.update(
-        {"duplicate_username": _("This username has already been taken.")}
+        {"duplicate_username": _("This username has already been taken.")},
+    )
+    error_message = forms.UserCreationForm.error_messages.update(
+        {"dob_in_future": _("Date of Birth cannot be in future!")}
     )
 
     date_of_birth = dj_forms.DateField(
@@ -29,9 +32,6 @@ class UserCreationForm(forms.UserCreationForm):
 
     class Meta(forms.UserCreationForm.Meta):
         model = User
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -45,8 +45,9 @@ class UserCreationForm(forms.UserCreationForm):
 
     def clean_date_of_birth(self):
         dob = self.cleaned_data["date_of_birth"]
-        if dob < datetime.date.today():
+        if dob < datetime.date(datetime.today()):
             return dob
+        return ValidationError(self.error_messages["dob_in_future"])
 
 
 class UserAvailabilityForm(dj_forms.ModelForm):

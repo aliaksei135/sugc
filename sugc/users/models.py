@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 
 from django.contrib.auth.models import AbstractUser
@@ -23,7 +24,7 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
     profile_img = models.ImageField(upload_to='user_media/', default='images/profile_default.jpg')
-    date_of_birth = models.DateField(_("Date of Birth"), null=False, blank=False)
+    date_of_birth = models.DateField(_("Date of Birth"), null=False, blank=False, default=datetime.date.today)
 
     on_waiting_list = models.BooleanField(_("On Waiting List?"), default=True)
     has_susu_membership = models.BooleanField(_("Has SUSU Membership?"), default=False)
@@ -50,8 +51,3 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
-    class Meta:
-        # permissions = [
-        #     ('can_change_badges', 'Can change pilot badges')
-        # ]
-        pass

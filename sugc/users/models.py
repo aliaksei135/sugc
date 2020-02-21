@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
@@ -21,8 +23,9 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
     profile_img = models.ImageField(upload_to='user_media/', default='images/profile_default.jpg')
+    date_of_birth = models.DateField(_("Date of Birth"), null=False, blank=False)
 
-    waiting_list_position = models.IntegerField(_("Waiting List Position"), default=0)
+    on_waiting_list = models.BooleanField(_("On Waiting List?"), default=True)
     has_susu_membership = models.BooleanField(_("Has SUSU Membership?"), default=False)
 
     is_solo = models.BooleanField(_("Solo?"), default=False)
@@ -30,6 +33,19 @@ class User(AbstractUser):
     is_xc = models.BooleanField(_("XC?"), default=False)
 
     availability = models.ManyToManyField(Availability, )
+
+    balance = models.FloatField(_("Account Balance"), null=False, blank=False, default=0.0, editable=False)
+
+    @property
+    def waiting_list_position(self):
+        '''Returns waiting list position on first-come-first-serve basis'''
+        return 0
+
+    @property
+    def get_age(self):
+        today = date.today()
+        return today.year - self.date_of_birth.year - \
+               ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})

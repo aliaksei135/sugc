@@ -21,8 +21,17 @@ class UserCreationForm(forms.UserCreationForm):
         {"duplicate_username": _("This username has already been taken.")}
     )
 
+    date_of_birth = dj_forms.DateField(
+        label=_("Date of Birth"),
+        widget=dj_forms.DateInput,
+        initial=_("Enter your Date of Birth"),
+    )
+
     class Meta(forms.UserCreationForm.Meta):
         model = User
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -34,19 +43,13 @@ class UserCreationForm(forms.UserCreationForm):
 
         raise ValidationError(self.error_messages["duplicate_username"])
 
+    def clean_date_of_birth(self):
+        dob = self.cleaned_data["date_of_birth"]
+        if dob < datetime.date.today():
+            return dob
+
 
 class UserAvailabilityForm(dj_forms.ModelForm):
-    # date_available = dj_forms.DateField(label="Availability",
-    #                                     required=True,
-    #                                     input_formats='%d/%m/%Y',
-    #                                     widget=DatePickerInput(format='%d/%m/%Y',
-    #                                                            attrs={'class': 'form-control'},
-    #                                                            options={
-    #                                                                'daysOfWeekDisabled': [1,2,4,5],
-    #                                                                'minDate': datetime.now().date().isoformat(),
-    #                                                                'locale': 'en-gb',
-    #                                                            })
-    #                                     )
 
     def __init__(self, *args, **kwargs):
         super(UserAvailabilityForm, self).__init__(*args, **kwargs)

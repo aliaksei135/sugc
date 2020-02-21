@@ -312,6 +312,7 @@ ACCOUNT_ADAPTER = "sugc.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "sugc.users.adapters.SocialAccountAdapter"
 
+ACCOUNT_SIGNUP_FORM_CLASS = 'sugc.users.forms.UserCreationForm'
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation

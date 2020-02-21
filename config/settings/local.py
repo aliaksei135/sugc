@@ -31,6 +31,7 @@ CACHES = {
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # WhiteNoise
 # ------------------------------------------------------------------------------

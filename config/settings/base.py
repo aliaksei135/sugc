@@ -89,7 +89,6 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
     "rest_framework",
     "django_celery_beat",
     'bootstrap_datepicker_plus',

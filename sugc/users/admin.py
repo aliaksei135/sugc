@@ -19,8 +19,7 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     availability_form = UserAvailabilityForm
     fieldsets = (("User", {"fields":
-                               ("name", "has_susu_membership", "is_solo", "is_bronze", "is_xc", "date_of_birth",
-                                "balance")}),) \
+                               ("name", "has_susu_membership", "is_solo", "is_bronze", "is_xc", "date_of_birth")}),) \
                 + auth_admin.UserAdmin.fieldsets
     list_display = ["name", "is_staff", "has_susu_membership"]
     search_fields = ["name", "availability"]

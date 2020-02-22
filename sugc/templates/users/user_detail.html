@@ -9,10 +9,7 @@
     <div class="row mt-4">
       <div class="col-sm-10">
 
-        <h2>{{ object.username }}</h2>
-        {% if object.name %}
-          <p>{{ object.name }}</p>
-        {% endif %}
+        <h2>{{ object.name }}</h2>
         {% if object.email %}
           <p>{{ object.email }}</p>
         {% endif %}
@@ -37,7 +34,7 @@
       {% elif not object.has_susu_membership %}
         <h3>Please ensure you have purchased the correct SUSU membership <a
                 href="https://www.susu.org/groups/sugc#fees">here</a></h3>
-        <p>If you have already bought membership, please bare with us, we have to check each membership manually!</p>
+        <p>If you have already bought membership, please bare with us, we check each membership manually!</p>
       {% else %}
         <h2>My Availability</h2>
         <div class="row mt-3">
@@ -109,8 +106,8 @@
 
         <div class="row mt-3">
           <h3>My Fees</h3>
-          <i>Only unpaid fees are displayed here. If you have just paid, please bare with us; each payment is check
-            manually</i>
+          <i>Only unpaid fees are displayed here. If you have recently paid, please bare with us;
+            payments are manually checked!</i>
           <div class="col-sm-12">
             <table class="table">
               <thead>

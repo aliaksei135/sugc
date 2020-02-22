@@ -22,13 +22,14 @@ class Availability(models.Model):
 class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_("Name of User"), blank=True, max_length=255)
+    name = models.CharField(_("Full Name"), blank=False, max_length=255)
     profile_img = models.ImageField(upload_to='user_media/', default='images/profile_default.jpg')
     date_of_birth = models.DateField(_("Date of Birth"), null=False, blank=False, default=datetime.date.today)
     is_driver = models.BooleanField(_("Is driver?"), default=False)
 
     on_waiting_list = models.BooleanField(_("On Waiting List?"), default=True)
     has_susu_membership = models.BooleanField(_("Has SUSU Membership?"), default=False)
+    student_id = models.IntegerField(_("Student ID Number"), null=True, blank=True)
 
     is_solo = models.BooleanField(_("Solo?"), default=False)
     is_bronze = models.BooleanField(_("Bronze?"), default=False)

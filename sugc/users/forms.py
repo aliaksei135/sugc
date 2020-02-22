@@ -24,14 +24,20 @@ class UserCreationForm(forms.UserCreationForm):
         {"dob_in_future": _("Date of Birth cannot be in future!")}
     )
 
-    date_of_birth = dj_forms.DateField(
-        label=_("Date of Birth"),
-        widget=dj_forms.DateInput,
-        initial=_("Enter your Date of Birth"),
-    )
+    # date_of_birth = dj_forms.DateField(
+    #     label=_("Date of Birth"),
+    #     widget=dj_forms.DateInput,
+    #     hint=_("Enter your Date of Birth"),
+    # )
+    #
+    # student_id = dj_forms.IntegerField(
+    #     label=_("Student ID Number"),
+    #
+    # )
 
     class Meta(forms.UserCreationForm.Meta):
         model = User
+        fields = ['name', 'student_id', 'date_of_birth']
 
     def clean_username(self):
         username = self.cleaned_data["username"]

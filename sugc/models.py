@@ -1,7 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from sugc.users.models import User
+user_model = get_user_model()
 
 
 class FlightModelManager(models.Manager):
@@ -32,6 +33,8 @@ class FlightModelManager(models.Manager):
                 else:
                     days_fee += fee_model.std_subs_launch_cost + f.duration * fee_model.std_subs_minute_cost
 
+            f.invoiced_for = True
+
         return days_fee
 
 
@@ -41,6 +44,14 @@ class FeesModelManager(models.Manager):
         # Most recent fee model that is before the given date
         # model objects are sorted into descending date_effective_from order
         return self.filter(date_effective_from__lte=date).last()
+
+
+class FeesInvoice(models.Model):
+    date = models.DateField(_("Flying Date"), blank=False, null=False)
+    balance = models.FloatField(_("Flying Fees Due"), blank=False, null=False, default=0.0)
+    paid = models.BooleanField(_("Paid"), null=False, default=False)
+
+    member = models.ForeignKey(user_model, on_delete=models.CASCADE, related_name='invoices')
 
 
 class GlidingFeePeriod(models.Model):
@@ -87,12 +98,14 @@ class Flight(models.Model):
     date = models.DateField(_("Flight Date"), null=False, blank=False)
     aircraft = models.ForeignKey(Aircraft, on_delete=models.CASCADE)
 
-    member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='flights')
+    member = models.ForeignKey(user_model, on_delete=models.CASCADE, related_name='flights')
 
     capacity = models.CharField(_("Pilot Capacity"), choices=PILOT_CAPACITY_CHOICES, default='P2', max_length=32)
     duration = models.IntegerField(_("Flight Duration [mins]"), null=False, blank=False)
     is_train_launch_failure = models.BooleanField(_("TLF?"), default=False)
     is_real_launch_failure = models.BooleanField(_("RLF?"), default=False)
+
+    invoiced_for = models.BooleanField(_("Invoiced For"), editable=False, null=False, default=False)
 
     def __str__(self):
         return str(self.aircraft.registration) + ' ' + str(self.member.name) + ' ' + str(self.date)

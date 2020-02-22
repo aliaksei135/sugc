@@ -35,7 +35,15 @@ class User(AbstractUser):
 
     availability = models.ManyToManyField(Availability, )
 
-    balance = models.FloatField(_("Account Balance"), null=False, blank=False, default=0.0, editable=False)
+    # balance = models.FloatField(_("Account Balance"), null=False, blank=False, default=0.0, editable=False)
+
+    @property
+    def balance(self):
+        unpaid_invoices = self.unpaid_invoices()
+        balance = 0.0
+        for i in unpaid_invoices:
+            balance += i.invoice_balance
+        return balance
 
     @property
     def waiting_list_position(self):
@@ -43,7 +51,7 @@ class User(AbstractUser):
         return 0
 
     @property
-    def get_age(self):
+    def age(self):
         today = date.today()
         return today.year - self.date_of_birth.year - \
                ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
@@ -51,3 +59,6 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
+    @property
+    def unpaid_invoices(self):
+        return self.invoices.filter(paid=False)

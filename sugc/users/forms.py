@@ -37,17 +37,17 @@ class UserCreationForm(forms.UserCreationForm):
 
     class Meta(forms.UserCreationForm.Meta):
         model = User
-        fields = ['name', 'student_id', 'date_of_birth']
+        fields = ['first_name', 'last_name', 'student_id', 'date_of_birth']
 
-    def clean_username(self):
-        username = self.cleaned_data["username"]
-
-        try:
-            User.objects.get(username=username)
-        except User.DoesNotExist:
-            return username
-
-        raise ValidationError(self.error_messages["duplicate_username"])
+    # def clean_username(self):
+    #     username = self.cleaned_data["username"]
+    #
+    #     try:
+    #         User.objects.get(username=username)
+    #     except User.DoesNotExist:
+    #         return username
+    #
+    #     raise ValidationError(self.error_messages["duplicate_username"])
 
     def clean_date_of_birth(self):
         dob = self.cleaned_data["date_of_birth"]

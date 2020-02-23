@@ -65,3 +65,6 @@ class User(AbstractUser):
     @property
     def unpaid_invoices(self):
         return self.invoices.filter(paid=False)
+
+    def __str__(self):
+        return self.name

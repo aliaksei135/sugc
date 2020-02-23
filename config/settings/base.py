@@ -94,6 +94,7 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     'bootstrap_datepicker_plus',
     'bootstrap4',
+    'avatar'
 ]
 
 LOCAL_APPS = [
@@ -329,3 +330,5 @@ WAGTAIL_SITE_NAME = 'SUGC Blog'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+AVATAR_GRAVATAR_DEFAULT = 'mp'

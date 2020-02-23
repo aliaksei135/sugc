@@ -29,6 +29,7 @@ urlpatterns = [
                   # User management
                   path("users/", include("sugc.users.urls", namespace="users")),
                   path("accounts/", include("allauth.urls")),
+                  path("avatar/", include('avatar.urls')),
                   # CMS
                   # Cannot specify these in blog app due to wagtail namespace restrictions
                   path("blog/", include('puput.urls')),

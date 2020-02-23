@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static bootstrap4 %}
+{% load static bootstrap4 avatar_tags %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
@@ -16,13 +16,7 @@
       </div>
 
       <div class="col-sm-2">
-        <img src="
-          {% if object.profile_img %}
-            {{ object.profile_img.url }}
-          {% else %}
-            {% static 'images/profile_default' %}
-          {% endif %}
-          " class="img-circle img-responsive" alt="Profile Image"/>
+        {% avatar user class="img-circle img-responsive" id="user_avatar" %}
       </div>
     </div>
 

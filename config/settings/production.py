@@ -16,8 +16,8 @@ DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # no
 
 # STATIC
 # ------------------------------------------------------------------------------
-STATIC_ROOT = '~/sugc/static/'
-MEDIA_ROOT = '~/sugc/media/'
+STATIC_ROOT = '.../static/'
+MEDIA_ROOT = '../media/'
 
 # CACHES
 # ------------------------------------------------------------------------------

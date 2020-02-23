@@ -10,12 +10,12 @@
 
   <title>{% block page_title %}SUGC{% endblock page_title %}</title>
 
-  {% compress css %}
-    {% block css %}
-      {% bootstrap_css %}>
+  {% block css %}
+    {% bootstrap_css %}
+    {% compress css %}
       <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    {% endblock css %}
-  {% endcompress css %}
+    {% endcompress css %}
+  {% endblock css %}
 </head>
 
 <body>
@@ -59,12 +59,12 @@
 
 {% endblock root_body %}
 
-{% compress js %}
-  {% block js %}
-    <!-- Bootstrap core JavaScript -->
-    {% bootstrap_javascript jquery='full' %}
-  {% endblock js %}
-{% endcompress js %}
+{% block js %}
+  <!-- Bootstrap core JavaScript -->
+  {% bootstrap_javascript jquery='full' %}
+  {% compress js %}
+  {% endcompress js %}
+{% endblock js %}
 
 </body>
 

@@ -36,7 +36,9 @@ class User(AbstractUser):
 
     availability = models.ManyToManyField(Availability, )
 
-    # balance = models.FloatField(_("Account Balance"), null=False, blank=False, default=0.0, editable=False)
+    @property
+    def name(self):
+        return self.first_name + ' ' + self.last_name
 
     @property
     def balance(self):

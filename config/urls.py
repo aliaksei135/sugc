@@ -5,8 +5,6 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
-from wagtail.admin import urls as wagtailadmin_urls
-
 urlpatterns = [
                   path("", TemplateView.as_view(template_name="index.html"), name="home"),
                   path("gallery/", TemplateView.as_view(template_name="gallery.html"), name="gallery"),
@@ -33,7 +31,7 @@ urlpatterns = [
                   # CMS
                   # Cannot specify these in blog app due to wagtail namespace restrictions
                   path("blog/", include('puput.urls')),
-                  path("blog/editors/", include(wagtailadmin_urls)),
+                  # path("blog/editors/", include(wagtailadmin_urls)),
                   # path("wagtail/", include(wagtail_urls)),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

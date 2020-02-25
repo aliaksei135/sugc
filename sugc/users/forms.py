@@ -24,36 +24,19 @@ class UserCreationForm(forms.UserCreationForm):
         {"dob_in_future": _("Date of Birth cannot be in future!")}
     )
 
-    # date_of_birth = dj_forms.DateField(
-    #     label=_("Date of Birth"),
-    #     widget=dj_forms.DateInput,
-    #     hint=_("Enter your Date of Birth"),
-    # )
-    #
-    # student_id = dj_forms.IntegerField(
-    #     label=_("Student ID Number"),
-    #
-    # )
-
     class Meta(forms.UserCreationForm.Meta):
         model = User
         fields = ['first_name', 'last_name', 'student_id', 'date_of_birth']
-
-    # def clean_username(self):
-    #     username = self.cleaned_data["username"]
-    #
-    #     try:
-    #         User.objects.get(username=username)
-    #     except User.DoesNotExist:
-    #         return username
-    #
-    #     raise ValidationError(self.error_messages["duplicate_username"])
 
     def clean_date_of_birth(self):
         dob = self.cleaned_data["date_of_birth"]
         if dob < datetime.date(datetime.today()):
             return dob
         return ValidationError(self.error_messages["dob_in_future"])
+
+    def save(self, commit=True):
+        # saved in adapter
+        pass
 
 
 class UserAvailabilityForm(dj_forms.ModelForm):

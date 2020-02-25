@@ -21,6 +21,7 @@ class UserAdmin(auth_admin.UserAdmin):
                 + auth_admin.UserAdmin.fieldsets
     list_display = ["first_name", "last_name", "is_staff", "has_susu_membership"]
     search_fields = ["first_name", "last_name", "email"]
+    ordering = ['last_name']
 
 
 @admin.register(Flight)

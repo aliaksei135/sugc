@@ -20,8 +20,6 @@ class Availability(models.Model):
 
 
 class User(AbstractUser):
-    # First Name and Last Name do not cover name patterns
-    # around the globe.
     profile_img = models.ImageField(upload_to='user_media/', default='images/profile_default.jpg')
     date_of_birth = models.DateField(_("Date of Birth"), null=False, blank=False, default=datetime.date.today)
     is_driver = models.BooleanField(_("Is driver?"), default=False)

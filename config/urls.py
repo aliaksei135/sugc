@@ -11,11 +11,9 @@ urlpatterns = [
                   path("about/", include([
                       path("typical-day", TemplateView.as_view(template_name="about_pages/typical_day.html"),
                            name="typical_day"),
-                      path("what-is-gliding", TemplateView.as_view(template_name="pages/what_is_gliding.html"),
+                      path("what-is-gliding", TemplateView.as_view(template_name="about_pages/what-is-gliding.html"),
                            name="what_is_gliding"),
                       path("join", TemplateView.as_view(template_name="about_pages/joining.html"), name='joining'),
-                      path("expeditions", TemplateView.as_view(template_name="about_pages/expeditions.html"),
-                           name="expeditions"),
                       path("faq", TemplateView.as_view(template_name="about_pages/faq.html"), name="faq"),
                       path("", TemplateView.as_view(template_name="about_pages/about.html"), name="about"),
                   ])),

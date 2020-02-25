@@ -325,6 +325,8 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # wagtail CMS
 # ------------------------------------------------------------------------------
 WAGTAIL_SITE_NAME = 'SUGC Blog'
+WAGTAIL_MODERATION_ENABLED = False
+WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 # PUPUT_AS_PLUGIN = True
 
 BOOTSTRAP4 = {

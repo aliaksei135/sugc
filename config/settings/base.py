@@ -93,7 +93,9 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     'bootstrap_datepicker_plus',
     'bootstrap4',
-    'avatar'
+    'avatar',
+    'photologue',
+    'sortedm2m'
 ]
 
 LOCAL_APPS = [
@@ -329,8 +331,16 @@ WAGTAIL_MODERATION_ENABLED = False
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 # PUPUT_AS_PLUGIN = True
 
+# django-bootstrap4
+# ------------------------------------------------------------------------------
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
+# django-avatar
+# ------------------------------------------------------------------------------
 AVATAR_GRAVATAR_DEFAULT = 'mp'
+
+# django-photologue
+# ------------------------------------------------------------------------------
+PHOTOLOGUE_MULTISITE = False

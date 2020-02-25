@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
                   path("", TemplateView.as_view(template_name="index.html"), name="home"),
-                  path("gallery/", TemplateView.as_view(template_name="gallery.html"), name="gallery"),
+                  path("gallery/", include(('photologue.urls', 'photologue'), namespace='photologue')),
                   path("about/", include([
                       path("typical-day", TemplateView.as_view(template_name="about_pages/typical_day.html"),
                            name="typical_day"),
@@ -29,8 +29,6 @@ urlpatterns = [
                   # CMS
                   # Cannot specify these in blog app due to wagtail namespace restrictions
                   path("blog/", include('puput.urls')),
-                  # path("blog/editors/", include(wagtailadmin_urls)),
-                  # path("wagtail/", include(wagtail_urls)),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

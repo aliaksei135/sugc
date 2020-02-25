@@ -12,6 +12,8 @@ django-widget-tweaks==1.4.2
 django-bootstrap4
 django-bootstrap-datepicker-plus
 django-colorful
+django-avatar
+django-photologue
 
 # Django
 # ------------------------------------------------------------------------------

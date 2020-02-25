@@ -35,7 +35,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/sugc/templates" />
-        <option value="$MODULE_DIR$/sugc/blog/templates" />
+        <option value="$MODULE_DIR$/puput/templates" />
       </list>
     </option>
   </component>

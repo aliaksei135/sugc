@@ -314,6 +314,7 @@ ACCOUNT_USER_USERNAME_FIELD = 'username'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_DISPLAY = lambda user: user.name
 ACCOUNT_SIGNUP_FORM_CLASS = 'sugc.users.forms.UserCreationForm'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 # django-compressor
 # ------------------------------------------------------------------------------

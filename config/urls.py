@@ -6,7 +6,6 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 urlpatterns = [
-                  path("", TemplateView.as_view(template_name="index.html"), name="home"),
                   path("gallery/", include(('photologue.urls', 'photologue'), namespace='photologue')),
                   path("about/", include([
                       path("typical-day", TemplateView.as_view(template_name="about_pages/typical_day.html"),
@@ -21,6 +20,8 @@ urlpatterns = [
                   # Django Admin, use {% url 'admin:index' %}
                   path('jet/', include('jet.urls', 'jet')),
                   path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+                  path(settings.ADMIN_URL + '/flying/', TemplateView.as_view(template_name='admin/flying.html'),
+                       name="flying_list"),
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("users/", include("sugc.users.urls", namespace="users")),
@@ -29,6 +30,8 @@ urlpatterns = [
                   # CMS
                   # Cannot specify these in blog app due to wagtail namespace restrictions
                   path("blog/", include('puput.urls')),
+
+                  path("", TemplateView.as_view(template_name="index.html"), name="home"),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

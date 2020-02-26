@@ -68,6 +68,7 @@ class GlidingFeePeriod(models.Model):
     junior_launch_cost = models.FloatField(_("Juniors' Actual Launch Cost"), blank=False, null=False)
     junior_tlf_cost = models.FloatField(_("Juniors' Actual TLF Cost"), blank=False, null=False)
     junior_minute_cost = models.FloatField(_("Juniors' Actual Minute Cost"), null=False, blank=False)
+    junior_subs_mins = models.IntegerField(_("Juniors' Subsidised Amount of Minutes"), null=False, blank=False)
     junior_subs_launch_cost = models.FloatField(_("Juniors' Subsidised Launch Cost"), blank=False, null=False)
     junior_subs_tlf_cost = models.FloatField(_("Juniors' Subsidised TLF Cost"), blank=False, null=False)
     junior_subs_minute_cost = models.FloatField(_("Juniors' Subsidised Minute Cost"), null=False, blank=False)
@@ -75,11 +76,12 @@ class GlidingFeePeriod(models.Model):
     std_launch_cost = models.FloatField(_("Standard Actual Launch Cost"), blank=False, null=False)
     std_tlf_cost = models.FloatField(_("Standard Actual TLF Cost"), blank=False, null=False)
     std_minute_cost = models.FloatField(_("Standard Actual Minute Cost"), null=False, blank=False)
+    std_subs_mins = models.IntegerField(_("Standard Subsidised Amount of Minutes"), null=False, blank=False)
     std_subs_launch_cost = models.FloatField(_("Standard Subsidised Launch Cost"), blank=False, null=False)
     std_subs_tlf_cost = models.FloatField(_("Standard Subsidised TLF Cost"), blank=False, null=False)
     std_subs_minute_cost = models.FloatField(_("Standard Subsidised Minute Cost"), null=False, blank=False)
 
-    std_age = models.IntegerField(_("Age at which to charge standard fees"), blank=False, null=False)
+    std_age = models.IntegerField(_("Age from which to charge standard fees"), blank=False, null=False)
 
     def __str__(self):
         return "Fees from " + self.date_effective_from.strftime('%d/%m/%Y')
@@ -118,6 +120,18 @@ class Flight(models.Model):
 
     def __str__(self):
         return str(self.aircraft.registration) + ' ' + str(self.member.name) + ' ' + str(self.date)
+
+    class Meta:
+        ordering = ['date']
+
+
+class FlyingList(models.Model):
+    date = models.DateField(_("Flying List Date"), blank=False, null=False)
+    driver = models.ForeignKey(user_model, on_delete=models.CASCADE)
+    members = models.ManyToManyField(user_model, related_name='flyinglists')
+
+    def __str__(self):
+        return str(self.date) + ' List'
 
     class Meta:
         ordering = ['date']

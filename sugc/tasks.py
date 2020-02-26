@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 
 from config import celery_app
-from sugc.models import Flight, FeesInvoice
+from sugc.models import Flight, FeesInvoice, FlyingList
 
 user_model = get_user_model()
 
@@ -31,6 +31,9 @@ def make_flying_list(weekday=(5, 6), spaces=(5, 5)):
         driver = applicants.filter(is_driver=True).first()
         selected_applicants = applicants[:day_spaces - 2]
         send_flying_emails(driver, selected_applicants)
+        list, success = FlyingList.objects.get_or_create(date=date, driver=driver)
+        if success:
+            list.members.add(selected_applicants)
 
 
 def send_flying_emails(driver, passengers):

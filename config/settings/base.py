@@ -66,6 +66,7 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     'jet.dashboard',
     'jet',
+    'admin_views',
     "django.contrib.admin",
 ]
 THIRD_PARTY_APPS = [

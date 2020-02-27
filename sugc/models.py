@@ -132,6 +132,6 @@ class FlyingList(models.Model):
 
     def __str__(self):
         return str(self.date) + ' List'
-
+    
     class Meta:
         ordering = ['date']

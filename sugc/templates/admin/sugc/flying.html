@@ -26,6 +26,11 @@
         data: {
           'date': date
         },
+        beforeSend: function (xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
         success: function (data) {
           $("#id_driver").html(data);
         }
@@ -34,6 +39,11 @@
         url: url,
         data: {
           'date': date
+        },
+        beforeSend: function (xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
         },
         success: function (data) {
           $("#id_members").html(data);

@@ -20,8 +20,6 @@ urlpatterns = [
                   # Django Admin, use {% url 'admin:index' %}
                   path('jet/', include('jet.urls', 'jet')),
                   path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
-                  path(settings.ADMIN_URL + '/flying/', TemplateView.as_view(template_name='admin/flying.html'),
-                       name="flying_list"),
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("users/", include("sugc.users.urls", namespace="users")),

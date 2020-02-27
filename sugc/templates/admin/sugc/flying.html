@@ -1,0 +1,44 @@
+{% extends 'admin/base.html' %}
+{% block page_title %}Flying Lists{% endblock page_title %}
+
+{% block content %}
+  <h2>Flying List Creation</h2>
+
+  <form method="post" id="flyingListForm" data-drivers-url="{% url 'admin:ajax_available_drivers' %}"
+        data-members-url=""{% url 'admin:ajax_available_members' %} novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <div class="submit-row">
+      <input class="default" type="submit" value="Save" name="_save">
+    </div>
+  </form>
+
+  <script>
+    $("#id_date").change(function () {
+      const form = $("#flyingListForm");
+      const drivers_url = form.attr("data-drivers-url");
+      const members_url = form.attr("data-members-url");
+      const date = $(this).val();
+      $.ajax({
+        url: url,
+        data: {
+          'date': date
+        },
+        success: function (data) {
+          $("#id_driver").html(data);
+        }
+      });
+      $.ajax({
+        url: url,
+        data: {
+          'date': date
+        },
+        success: function (data) {
+          $("#id_members").html(data);
+        }
+      });
+    });
+  </script>
+{% endblock content %}

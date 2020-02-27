@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from bootstrap_datepicker_plus import DatePickerInput
 from django import forms as dj_forms
@@ -50,7 +50,9 @@ class UserAvailabilityForm(dj_forms.ModelForm):
                                                                attrs={'class': 'form-control'},
                                                                options={
                                                                    'daysOfWeekDisabled': [1, 2, 4, 5],
-                                                                   'minDate': datetime.now().date().isoformat(),
+                                                                   'minDate': datetime.date.today().isoformat(),
+                                                                   'maxDate': datetime.date.today()
+                                                                              + datetime.timedelta(weeks=2),
                                                                    'locale': 'en-gb',
                                                                })
 

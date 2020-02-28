@@ -51,8 +51,9 @@ class UserAvailabilityForm(dj_forms.ModelForm):
                                                                options={
                                                                    'daysOfWeekDisabled': [1, 2, 4, 5],
                                                                    'minDate': datetime.date.today().isoformat(),
-                                                                   'maxDate': datetime.date.today()
-                                                                              + datetime.timedelta(weeks=2),
+                                                                   'maxDate': (datetime.date.today()
+                                                                               + datetime.timedelta(
+                                                                           weeks=2)).isoformat(),
                                                                    'locale': 'en-gb',
                                                                })
 

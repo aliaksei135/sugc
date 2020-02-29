@@ -96,6 +96,7 @@ THIRD_PARTY_APPS = [
     'avatar',
     'photologue',
     'sortedm2m',
+    'import_export'
 ]
 
 LOCAL_APPS = [

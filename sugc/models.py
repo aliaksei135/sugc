@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from sugc.validators import not_in_past_validator
+
 user_model = get_user_model()
 
 
@@ -132,6 +134,17 @@ class FlyingList(models.Model):
 
     def __str__(self):
         return str(self.date) + ' List'
-    
+
     class Meta:
         ordering = ['date']
+
+
+class Availability(models.Model):
+    date_added = models.DateTimeField(_("Time Added"), auto_now_add=True)
+    date_available = models.DateField(_("Available"), blank=False, null=False, validators=[not_in_past_validator])
+
+    member = models.ForeignKey(user_model, on_delete=models.CASCADE, related_name='availability')
+
+    class Meta:
+        verbose_name = _("Available Day")
+        verbose_name_plural = _("Availability")

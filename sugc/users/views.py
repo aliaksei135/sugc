@@ -7,7 +7,7 @@ from django.views.generic import DetailView, RedirectView, UpdateView
 from django.views.generic.edit import ModelFormMixin
 
 from .forms import UserAvailabilityForm
-from .models import Availability
+from ..models import Availability
 
 User = get_user_model()
 
@@ -20,7 +20,7 @@ class UserDetailView(LoginRequiredMixin, ModelFormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = self.get_form()
+        form = UserAvailabilityForm(request.POST, user=self.object)
         if form.is_valid():
             return self.form_valid(form)
         else:
@@ -30,9 +30,8 @@ class UserDetailView(LoginRequiredMixin, ModelFormMixin, DetailView):
         return reverse("users:detail", kwargs={"username": self.request.user.username})
 
     def form_valid(self, form):
-        avail = Availability(date_available=form.cleaned_data['date_available'])
+        avail = Availability(date_available=form.cleaned_data['date_available'], member=self.request.user)
         avail.save()
-        self.object.availability.add(avail)
         messages.add_message(
             self.request, messages.INFO, _("Availability updated")
         )

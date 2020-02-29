@@ -6,18 +6,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from .validators import not_in_past_validator
-
-
-class Availability(models.Model):
-    date_added = models.DateTimeField(_("Time Added"), auto_now_add=True)
-    date_available = models.DateField(_("Available"), blank=False, null=False, validators=[not_in_past_validator],
-                                      unique=True)
-
-    class Meta:
-        verbose_name = _("Available Day")
-        verbose_name_plural = _("Availability")
-
 
 class User(AbstractUser):
     profile_img = models.ImageField(upload_to='user_media/', default='images/profile_default.jpg')
@@ -31,8 +19,6 @@ class User(AbstractUser):
     is_solo = models.BooleanField(_("Solo?"), default=False)
     is_bronze = models.BooleanField(_("Bronze?"), default=False)
     is_xc = models.BooleanField(_("XC?"), default=False)
-
-    availability = models.ManyToManyField(Availability, )
 
     @property
     def name(self):

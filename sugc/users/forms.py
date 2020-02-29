@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model, forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Availability
+from sugc.models import Availability
 
 User = get_user_model()
 
@@ -18,10 +18,8 @@ class UserChangeForm(forms.UserChangeForm):
 
 class UserCreationForm(forms.UserCreationForm):
     error_message = forms.UserCreationForm.error_messages.update(
-        {"duplicate_username": _("This username has already been taken.")},
-    )
-    error_message = forms.UserCreationForm.error_messages.update(
-        {"dob_in_future": _("Date of Birth cannot be in future!")}
+        {"duplicate_username": _("This username has already been taken."),
+         "dob_in_future": _("Date of Birth cannot be in future")},
     )
 
     class Meta(forms.UserCreationForm.Meta):
@@ -30,9 +28,9 @@ class UserCreationForm(forms.UserCreationForm):
 
     def clean_date_of_birth(self):
         dob = self.cleaned_data["date_of_birth"]
-        if dob < datetime.date(datetime.today()):
+        if dob < datetime.date.today():
             return dob
-        return ValidationError(self.error_messages["dob_in_future"])
+        raise ValidationError(self.error_messages["dob_in_future"], code='dob_in_future')
 
     def save(self, commit=True):
         # saved in adapter
@@ -40,8 +38,13 @@ class UserCreationForm(forms.UserCreationForm):
 
 
 class UserAvailabilityForm(dj_forms.ModelForm):
+    error_message = {
+        "duplicate_availability": "Availability on this date has already been added",
+        "past_availability": "Availability cannot be added in the past"
+    }
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
         super(UserAvailabilityForm, self).__init__(*args, **kwargs)
 
         self.fields['date_available'].label = 'Availability'
@@ -56,6 +59,17 @@ class UserAvailabilityForm(dj_forms.ModelForm):
                                                                            weeks=2)).isoformat(),
                                                                    'locale': 'en-gb',
                                                                })
+
+    def clean_date_available(self):
+        date = self.cleaned_data['date_available']
+        if date < datetime.date.today():
+            raise ValidationError(self.error_message['past_availability'], code='past_availability')
+        yesterday_date = datetime.date.today() - datetime.timedelta(days=1)
+        user_availability = self.user.availability.filter(date_available__gte=yesterday_date)
+        for availability in user_availability:
+            if date == availability.date_available:
+                raise ValidationError(self.error_message['duplicate_availability'], code='duplicate_availability')
+        return date
 
     class Meta:
         model = Availability

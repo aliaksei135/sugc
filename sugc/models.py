@@ -83,7 +83,7 @@ class GlidingFeePeriod(models.Model):
     std_subs_tlf_cost = models.FloatField(_("Standard Subsidised TLF Cost"), blank=False, null=False)
     std_subs_minute_cost = models.FloatField(_("Standard Subsidised Minute Cost"), null=False, blank=False)
 
-    std_age = models.IntegerField(_("Age from which to charge standard fees"), blank=False, null=False)
+    std_age = models.IntegerField(_("Age from which to charge standard fees"), blank=False, null=False, default=26)
 
     def __str__(self):
         return "Fees from " + self.date_effective_from.strftime('%d/%m/%Y')

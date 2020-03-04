@@ -12,8 +12,9 @@ User = get_user_model()
 
 
 class UserChangeForm(forms.UserChangeForm):
-    class Meta(forms.UserChangeForm.Meta):
+    class Meta:
         model = User
+        fields = ['first_name', 'last_name', 'email', 'is_driver', 'student_id']
 
 
 class UserCreationForm(forms.UserCreationForm):

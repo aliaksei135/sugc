@@ -1,49 +1,11 @@
 from django.contrib import admin
 from django.urls import path
 from import_export import resources
+from import_export.admin import ImportExportActionModelAdmin
 from import_export.fields import Field
 
 from sugc.admin_views import load_available_members, FlyingListView
 from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod
-
-admin.site.register(Aircraft)
-admin.site.register(GlidingFeePeriod)
-
-
-@admin.register(Flight)
-class FlightAdmin(admin.ModelAdmin):
-    list_display = ['date', 'member', 'aircraft', 'capacity']
-    ordering = ['-date']
-    search_fields = ['aircraft', 'date']
-
-
-@admin.register(FeesInvoice)
-class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ['date', 'member', 'balance', 'paid']
-    list_filter = ['paid']
-    ordering = ['-date']
-    search_fields = ['member']
-
-
-@admin.register(FlyingList)
-class FlyingListAdmin(admin.ModelAdmin):
-    def get_urls(self):
-        my_urls = [
-            path('flying_list/ajax/drivers', self.admin_site.admin_view(load_available_members),
-                 name='ajax_available_drivers'),
-            path('flying_list/ajax/members', self.admin_site.admin_view(load_available_members),
-                 name='ajax_available_members'),
-            path('flying-list/', self.admin_site.admin_view(FlyingListView.as_view()), name='flying_list'),
-        ]
-        return my_urls + super().get_urls()
-
-    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
-        default_response = super(FlyingListAdmin, self).render_change_form(request, context, add=add,
-                                                                           change=change, form_url=form_url, obj=obj)
-        if not add:
-            return default_response
-        else:
-            return FlyingListView.as_view()(default_response._request)
 
 
 # django-import-export ModelResources
@@ -76,7 +38,7 @@ class FlightResource(resources.ModelResource):
 
 
 class GlidingFeePeriodResource(resources.ModelResource):
-    id = Field(attribute='id', column_name='feesListID')
+    id = Field(attribute='id', column_name='feesLsistID')
     start_date = Field(attribute='date_effective_from', column_name='startDate')
     end_date = Field(column_name='endDate', readonly=True)
 
@@ -98,3 +60,52 @@ class GlidingFeePeriodResource(resources.ModelResource):
         model = GlidingFeePeriod
         skip_unchanged = True
         report_skipped = True
+
+
+# Model Admins
+# ------------------------------------------------------------------------------------------
+
+
+admin.site.register(Aircraft)
+
+
+@admin.register(GlidingFeePeriod)
+class GlidingFeePeriodAdmin(ImportExportActionModelAdmin):
+    resource_class = GlidingFeePeriodResource
+
+
+@admin.register(Flight)
+class FlightAdmin(ImportExportActionModelAdmin):
+    resource_class = FlightResource
+    list_display = ['date', 'member', 'aircraft', 'capacity']
+    ordering = ['-date']
+    search_fields = ['aircraft', 'date']
+
+
+@admin.register(FeesInvoice)
+class InvoiceAdmin(admin.ModelAdmin):
+    list_display = ['date', 'member', 'balance', 'paid']
+    list_filter = ['paid']
+    ordering = ['-date']
+    search_fields = ['member']
+
+
+@admin.register(FlyingList)
+class FlyingListAdmin(admin.ModelAdmin):
+    def get_urls(self):
+        my_urls = [
+            path('flying_list/ajax/drivers', self.admin_site.admin_view(load_available_members),
+                 name='ajax_available_drivers'),
+            path('flying_list/ajax/members', self.admin_site.admin_view(load_available_members),
+                 name='ajax_available_members'),
+            path('flying-list/', self.admin_site.admin_view(FlyingListView.as_view()), name='flying_list'),
+        ]
+        return my_urls + super().get_urls()
+
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        default_response = super(FlyingListAdmin, self).render_change_form(request, context, add=add,
+                                                                           change=change, form_url=form_url, obj=obj)
+        if not add:
+            return default_response
+        else:
+            return FlyingListView.as_view()(default_response._request)

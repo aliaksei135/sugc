@@ -1,28 +1,32 @@
 {% extends "base.html" %}
-{% load static bootstrap4 avatar_tags %}
+{% load static bootstrap4 avatar_tags django_tables2 %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
   <div class="container">
-    {% bootstrap_messages %}
-    <div class="row mt-4">
-      <div class="col-sm-10">
-
-        <h2>{{ object.first_name }} {{ object.last_name }}</h2>
-        {% if object.email %}
-          <p>{{ object.email }}</p>
-        {% endif %}
-      </div>
-
-      <div class="col-sm-2">
-        {% avatar user class="img-circle img-responsive" id="user_avatar" %}
-      </div>
-    </div>
-
-    <br>
-
     {% if object == request.user %}
+      {% bootstrap_messages %}
+      <div class="row mt-4">
+        <div class="col-sm-10">
+
+          <h2>{{ object.first_name }} {{ object.last_name }}</h2>
+          {% if object.email %}
+            <p>{{ object.email }}</p>
+          {% endif %}
+          <a class="btn btn-outline-secondary" role="button" href="{% url 'users:update' %}">Edit My Details</a>
+        </div>
+
+        <div class="col-sm-2">
+          <a href="{% url 'avatar_change' %}">
+            {% avatar user 100 class="img-fluid rounded-circle" id="user_avatar" %}
+          </a>
+        </div>
+      </div>
+
+      <br>
+
+
       {% if object.waiting_list_position > 0 %}
         <h3>You are #{{ object.waiting_list_position }} on the waiting list</h3>
       {% elif not object.has_susu_membership %}
@@ -40,7 +44,7 @@
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
-                  <input type="submit" value="Add" class="submit btn btn-primary" role="button">
+                  <input type="submit" value="Add" class="submit btn btn-primary right" role="button">
                 {% endbuttons %}
               </div>
             </form>
@@ -56,7 +60,7 @@
               </tr>
               </thead>
               <tbody>
-              {% for avail in user.availability.all %}
+              {% for avail in avail_list %}
                 <tr>
                   <td>{{ avail.date_available|date }}</td>
                   <td>{{ avail.date_added|date }}</td>
@@ -71,30 +75,31 @@
           <h3>My Flights</h3>
           <i>This is not a replacement for your logbook!</i>
           <div class="col-sm-12">
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Aircraft</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Pilot Capacity</th>
-                <th scope="col">Training Launch Fail?</th>
-                <th scope="col">Real Launch Fail?</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for flight in user.flights.all %}
-                <tr>
-                  <td>{{ flight.date|date:"D dS N Y" }}</td>
-                  <td>{{ flight.aircraft.registration }}</td>
-                  <td>{{ flight.duration }}</td>
-                  <td>{{ flight.capacity }}</td>
-                  <td>{{ flight.is_train_launch_failure }}</td>
-                  <td>{{ flight.is_real_launch_failure }}</td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+            {% render_table table %}
+            {#            <table class="table">#}
+            {#              <thead>#}
+            {#              <tr>#}
+            {#                <th scope="col">Date</th>#}
+            {#                <th scope="col">Aircraft</th>#}
+            {#                <th scope="col">Duration</th>#}
+            {#                <th scope="col">Pilot Capacity</th>#}
+            {#                <th scope="col">Training Launch Fail?</th>#}
+            {#                <th scope="col">Real Launch Fail?</th>#}
+            {#              </tr>#}
+            {#              </thead>#}
+            {#              <tbody>#}
+            {#              {% for flight in user.flights.all %}#}
+            {#                <tr>#}
+            {#                  <td>{{ flight.date|date:"D dS N Y" }}</td>#}
+            {#                  <td>{{ flight.aircraft.registration }}</td>#}
+            {#                  <td>{{ flight.duration }}</td>#}
+            {#                  <td>{{ flight.capacity }}</td>#}
+            {#                  <td>{{ flight.is_train_launch_failure }}</td>#}
+            {#                  <td>{{ flight.is_real_launch_failure }}</td>#}
+            {#                </tr>#}
+            {#              {% endfor %}#}
+            {#              </tbody>#}
+            {#            </table>#}
           </div>
         </div>
 
@@ -122,6 +127,8 @@
           </div>
         </div>
       {% endif %}
+    {% else %}
+      <h2>You can only view your own profile!</h2>
     {% endif %}
 
 

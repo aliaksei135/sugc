@@ -14,6 +14,7 @@ django-bootstrap-datepicker-plus
 django-colorful
 django-avatar
 django-photologue
+django-tables2
 
 # Django
 # ------------------------------------------------------------------------------

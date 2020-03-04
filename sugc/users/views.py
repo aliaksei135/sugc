@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,18 +8,28 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
 from django.views.generic.edit import ModelFormMixin
+from django_tables2 import SingleTableMixin
 
 from .forms import UserAvailabilityForm
+from .tables import FlightTable
 from ..models import Availability
 
 User = get_user_model()
 
 
-class UserDetailView(LoginRequiredMixin, ModelFormMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, ModelFormMixin, SingleTableMixin, DetailView):
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
     form_class = UserAvailabilityForm
+
+    table_class = FlightTable
+    table_pagination = {
+        'per_page': 10
+    }
+
+    def get_table_data(self):
+        return self.object.flights.all()
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -26,6 +38,18 @@ class UserDetailView(LoginRequiredMixin, ModelFormMixin, DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['avail_list'] = self.object.availability.filter(date_available__gte=datetime.date.today(),
+                                                                date_available__lte=(datetime.date.today()
+                                                                                     + datetime.timedelta(weeks=2)
+                                                                                     )
+                                                                )
+        # flights_table = FlightTable(self.object.flights.all())
+        # flights_table.paginate(page=self.request.GET.get('flights_page', 1), per_page=10)
+        # context['table'] = flights_table
+        return context
 
     def get_success_url(self):
         return reverse("users:detail", kwargs={"username": self.request.user.username})

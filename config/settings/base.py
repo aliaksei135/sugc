@@ -96,7 +96,8 @@ THIRD_PARTY_APPS = [
     'avatar',
     'photologue',
     'sortedm2m',
-    'import_export'
+    'import_export',
+    'django_tables2'
 ]
 
 LOCAL_APPS = [

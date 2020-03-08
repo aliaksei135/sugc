@@ -1,28 +1,42 @@
-{% extends 'admin/base.html' %}
+{% extends 'admin/base_site.html' %}
+{% load bootstrap4 %}
 {% block page_title %}Flying Lists{% endblock page_title %}
+
+{% block extrahead %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+  {{ form.media }}
+{% endblock extrahead %}
 
 {% block content %}
   <h2>Flying List Creation</h2>
 
   <form method="post" id="flyingListForm" data-drivers-url="{% url 'admin:ajax_available_drivers' %}"
-        data-members-url=""{% url 'admin:ajax_available_members' %} novalidate>
+        data-members-url="{% url 'admin:ajax_available_members' %}" novalidate>
     {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
+    <div class="form-group">
+      <table>
+        {{ form.as_table }}
+      </table>
+    </div>
     <div class="submit-row">
       <input class="default" type="submit" value="Save" name="_save">
     </div>
   </form>
 
   <script>
-    $("#id_date").change(function () {
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $("#id_date").on("dp.change", function () {
       const form = $("#flyingListForm");
       const drivers_url = form.attr("data-drivers-url");
       const members_url = form.attr("data-members-url");
       const date = $(this).val();
       $.ajax({
-        url: url,
+        url: drivers_url,
         data: {
           'date': date
         },
@@ -36,7 +50,7 @@
         }
       });
       $.ajax({
-        url: url,
+        url: members_url,
         data: {
           'date': date
         },

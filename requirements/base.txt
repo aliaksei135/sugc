@@ -15,6 +15,7 @@ django-colorful
 django-avatar
 django-photologue
 django-tables2
+django-import-export
 
 # Django
 # ------------------------------------------------------------------------------

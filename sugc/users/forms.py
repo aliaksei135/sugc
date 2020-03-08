@@ -23,6 +23,14 @@ class UserCreationForm(forms.UserCreationForm):
          "dob_in_future": _("Date of Birth cannot be in future")},
     )
 
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_birth'].widget = DatePickerInput(format='%d/%m/%Y',
+                                                              attrs={'class': 'form-control'},
+                                                              options={
+                                                                  'locale': 'en-gb',
+                                                              })
+
     class Meta(forms.UserCreationForm.Meta):
         model = User
         fields = ['first_name', 'last_name', 'student_id', 'date_of_birth']

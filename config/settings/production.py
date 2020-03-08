@@ -80,7 +80,7 @@ EMAIL_SUBJECT_PREFIX = env(
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
-ADMIN_URL = 'admin'
+ADMIN_URL = 'admin/'
 
 # Anymail (Mailgun)
 # ------------------------------------------------------------------------------

@@ -1,3 +1,5 @@
+import datetime
+
 from django import views
 from django.contrib.auth import get_user_model
 from django.db.models import Count
@@ -19,7 +21,7 @@ class FlyingListView(views.generic.CreateView):
 
 # Use AJAX to load drivers on a given day
 def load_available_drivers(request):
-    date = request.GET.get('date')
+    date = datetime.datetime.strptime(request.GET.get('date'), '%d/%m/%Y')
     available = User.objects.filter(availability__date_available=date) \
         .annotate(unpaid_invoice_count=Count('invoices')) \
         .filter(unpaid_invoice_count__lte=3) \
@@ -30,7 +32,7 @@ def load_available_drivers(request):
 
 # Use AJAX to load members on a given day
 def load_available_members(request):
-    date = request.GET.get('date')
+    date = datetime.datetime.strptime(request.GET.get('date'), '%d/%m/%Y')
     available = User.objects.filter(availability__date_available=date) \
         .annotate(unpaid_invoice_count=Count('invoices')) \
         .filter(unpaid_invoice_count__lte=3) \

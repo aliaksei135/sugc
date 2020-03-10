@@ -1,0 +1,9 @@
+{% for user in users %}
+  <tr>
+    <td>{{ user.name }}</td>
+    <td>{{ user.last_flight_date }}</td>
+    <td>{{ user.unpaid_invoices|length }}</td>
+    <td><input type="{{ input_type }}" name="{{ group }}" value="{{ user.username }}"
+               class="form-check-input position-static align-center" style="display: inline"></td>
+  </tr>
+{% endfor %}

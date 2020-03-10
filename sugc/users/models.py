@@ -43,6 +43,10 @@ class User(AbstractUser):
         return today.year - self.date_of_birth.year - \
                ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
 
+    @property
+    def last_flight_date(self):
+        return self.flights.latest('date').date
+
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 

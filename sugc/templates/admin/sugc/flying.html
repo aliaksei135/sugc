@@ -1,5 +1,5 @@
 {% extends 'admin/base_site.html' %}
-{% load bootstrap4 %}
+{% load bootstrap4 django_tables2 %}
 {% block page_title %}Flying Lists{% endblock page_title %}
 
 {% block extrahead %}
@@ -11,13 +11,22 @@
 {% block content %}
   <h2>Flying List Creation</h2>
 
-  <form method="post" id="flyingListForm" data-drivers-url="{% url 'admin:ajax_available_drivers' %}"
-        data-members-url="{% url 'admin:ajax_available_members' %}" novalidate>
+  <form method="post" id="flyingListForm"
+        data-drivers-url="{% url 'admin:ajax_available_drivers' %}"
+        data-members-url="{% url 'admin:ajax_available_members' %}"
+        novalidate>
     {% csrf_token %}
     <div class="form-group">
       <table>
         {{ form.as_table }}
       </table>
+      <br>
+      <h3>Drivers</h3>
+      {% render_table drivers_table %}
+      <br>
+      <h3>Members</h3>
+      {% render_table members_table %}
+
     </div>
     <div class="submit-row">
       <input class="default" type="submit" value="Save" name="_save">
@@ -46,7 +55,7 @@
           }
         },
         success: function (data) {
-          $("#id_driver").html(data);
+          $("#driversTable > tbody").html(data);
         }
       });
       $.ajax({
@@ -60,7 +69,7 @@
           }
         },
         success: function (data) {
-          $("#id_members").html(data);
+          $("#membersTable > tbody").html(data);
         }
       });
     });

@@ -4,6 +4,8 @@ from sugc.models import Flight
 
 
 class FlightTable(tables.Table):
+    date = tables.DateColumn(format='d/m/Y')
+
     class Meta:
         model = Flight
         template_name = "django_tables2/bootstrap4.html"

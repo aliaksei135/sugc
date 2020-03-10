@@ -4,7 +4,7 @@ from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.fields import Field
 
-from sugc.admin_views import load_available_members, FlyingListView
+from sugc.admin_views import load_available_members, FlyingListView, load_available_drivers
 from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod
 
 
@@ -94,7 +94,7 @@ class InvoiceAdmin(admin.ModelAdmin):
 class FlyingListAdmin(admin.ModelAdmin):
     def get_urls(self):
         my_urls = [
-            path('flying_list/ajax/drivers', self.admin_site.admin_view(load_available_members),
+            path('flying_list/ajax/drivers', self.admin_site.admin_view(load_available_drivers),
                  name='ajax_available_drivers'),
             path('flying_list/ajax/members', self.admin_site.admin_view(load_available_members),
                  name='ajax_available_members'),

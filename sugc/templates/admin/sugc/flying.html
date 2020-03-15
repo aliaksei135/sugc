@@ -17,14 +17,24 @@
         novalidate>
     {% csrf_token %}
     <div class="form-group">
+      {{ form.non_field_errors }}
       <table>
-        {{ form.as_table }}
+        <tr>
+          {{ form.date.errors }}
+          <th><label for="{{ form.date.id_for_label }}">Flying List Date:</label></th>
+          <td>
+            {{ form.date }}
+          </td>
+        </tr>
+        {#        {{ form.as_table }}#}
       </table>
       <br>
-      <h3>Drivers</h3>
+      <h4>Drivers</h4>
+      {{ form.driver.errors }}
       {% render_table drivers_table %}
       <br>
-      <h3>Members</h3>
+      <h4>Members</h4>
+      {{ form.members.errors }}
       {% render_table members_table %}
 
     </div>

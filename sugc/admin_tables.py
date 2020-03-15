@@ -10,7 +10,7 @@ class FlyingListDriversTable(tables.Table):
     selected = tables.Column(_("Selected"))
 
     class Meta:
-        attrs = {'id': 'driversTable'}
+        attrs = {'id': 'driversTable', 'class': 'text-center'}
 
 
 class FlyingListMembersTable(tables.Table):
@@ -21,4 +21,4 @@ class FlyingListMembersTable(tables.Table):
     selected = tables.Column(_("Selected"))
 
     class Meta:
-        attrs = {'id': 'membersTable'}
+        attrs = {'id': 'membersTable', 'class': 'text-center'}

@@ -4,9 +4,10 @@ from django import views
 from django.contrib.auth import get_user_model
 from django.db.models import Count
 from django.shortcuts import render
+from django.urls import reverse
 
+from sugc.admin_forms import FlyingListCreationForm
 from sugc.admin_tables import FlyingListDriversTable, FlyingListMembersTable
-from sugc.forms import FlyingListCreationForm
 from sugc.models import FlyingList
 
 User = get_user_model()
@@ -23,6 +24,9 @@ class FlyingListView(views.generic.CreateView):
         context['members_table'] = FlyingListMembersTable(User.objects.none())
         return context
 
+    def get_success_url(self):
+        return reverse('admin:sugc_flyinglist_changelist')
+
 
 # Use AJAX to load drivers on a given day
 def load_available_drivers(request):
@@ -32,7 +36,7 @@ def load_available_drivers(request):
         .filter(unpaid_invoice_count__lte=3) \
         .order_by('availability__date_added')
     drivers = available.filter(is_driver=True)
-    return render(request, 'admin/sugc/table_row.html', {'users': drivers, 'group': 'drivers', 'input_type': 'radio'})
+    return render(request, 'admin/sugc/table_row.html', {'users': drivers, 'group': 'driver', 'input_type': 'radio'})
 
 
 def load_available_members(request):

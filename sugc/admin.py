@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.core.mail import send_mail
 from django.urls import path
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
@@ -92,6 +93,8 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 @admin.register(FlyingList)
 class FlyingListAdmin(admin.ModelAdmin):
+    actions = ['email_flying_list']
+
     def get_urls(self):
         my_urls = [
             path('flying_list/ajax/drivers', self.admin_site.admin_view(load_available_drivers),
@@ -109,3 +112,16 @@ class FlyingListAdmin(admin.ModelAdmin):
             return default_response
         else:
             return FlyingListView.as_view()(default_response._request)
+
+    def email_flying_list(self, request, queryset):
+        for flying_list in queryset:
+            if isinstance(flying_list, FlyingList):
+                date_str = flying_list.date.strftime('%d/%m/%Y')
+                flying_list.driver.email_user('Flying {}'.format(date_str),
+                                              "You've been selected to drive for flying on {}".format(date_str),
+                                              )
+                send_mail('Flying {}'.format(date_str),
+                          "You've been selected for flying on {}".format(date_str),
+                          None,
+                          list(flying_list.members.all())
+                          )

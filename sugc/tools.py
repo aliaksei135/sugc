@@ -1,4 +1,5 @@
 import object_tools
+from django.contrib import messages
 from django.contrib.admin.sites import site
 
 from sugc.models import FeesInvoice
@@ -11,7 +12,11 @@ class Invoice(object_tools.ObjectTool):
 
     def view(self, request, extra_content=None):
         modeladmin = site._registry.get(self.model)
-        calculate_invoices()
+        result = calculate_invoices()
+        if result:
+            messages.success(request, "Invoices updated")
+        else:
+            messages.info(request, "No new invoices")
         return modeladmin.changelist_view(request)
 
 

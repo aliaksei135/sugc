@@ -12,12 +12,17 @@ user_model = get_user_model()
 @celery_app.task(name="Daily Invoice Calculation")
 def calculate_invoices():
     flight_dates = Flight.objects.filter(invoiced_for=False).dates('date', 'day')
+    if not flight_dates:
+        return False
+
     for date in flight_dates:
         member_ids_on_date = Flight.objects.filter(date=date).values_list('member', flat=True).distinct()
         for member_id in member_ids_on_date:
             member = user_model.objects.get(id=member_id)
             fees = Flight.objects.get_fees_by_date(member, date)
             FeesInvoice.objects.create(date=date, member=member, balance=fees).save()
+
+    return True
 
 
 @celery_app.task(name="Make flying list")

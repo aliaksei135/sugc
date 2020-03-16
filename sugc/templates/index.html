@@ -5,7 +5,15 @@
   {% compress css %}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <style>
+      body {
+        background: url('{% static 'images/hero.jpg' %}') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -o-background-size: cover;
+      }
+    </style>
   {% endcompress css %}
 {% endblock css %}
 
@@ -24,7 +32,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
-          <h1 class="mt-5">Southampton University Gliding Club</h1>
+          <h1 class="text-white fa-font mt-5">Southampton University Gliding Club</h1>
         </div>
       </div>
     </div>

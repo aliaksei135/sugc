@@ -16,6 +16,7 @@ django-avatar
 django-photologue
 django-tables2
 django-import-export
+django-object-tools
 
 # Django
 # ------------------------------------------------------------------------------

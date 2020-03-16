@@ -97,7 +97,8 @@ THIRD_PARTY_APPS = [
     'photologue',
     'sortedm2m',
     'import_export',
-    'django_tables2'
+    'django_tables2',
+    'object_tools',
 ]
 
 LOCAL_APPS = [

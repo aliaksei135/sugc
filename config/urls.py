@@ -1,3 +1,4 @@
+import object_tools
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -20,6 +21,7 @@ urlpatterns = [
                   # Django Admin, use {% url 'admin:index' %}
                   path('jet/', include('jet.urls', 'jet')),
                   path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+                  path('object-tools/', object_tools.tools.urls),
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("users/", include("sugc.users.urls", namespace="users")),

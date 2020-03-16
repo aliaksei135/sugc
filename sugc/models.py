@@ -14,7 +14,6 @@ class FlightModelManager(models.Manager):
 
     def get_fees_by_date(self, user, date):
         flights = self.get_flights_by_date(user, date)
-        member_age = user.get_age()
         fee_model = GlidingFeePeriod.objects.get_fee_model_for_date(date)
         days_fee = 0.0
         for f in flights:
@@ -22,18 +21,34 @@ class FlightModelManager(models.Manager):
             if f.is_real_launch_failure:
                 continue
 
-            if member_age < fee_model.std_age:
+            if user.age < fee_model.std_age:
                 # Is a junior
                 if f.is_train_launch_failure:
                     days_fee += fee_model.junior_subs_tlf_cost
                 else:
-                    days_fee += fee_model.junior_subs_launch_cost + f.duration * fee_model.junior_subs_minute_cost
+                    if f.duration <= fee_model.junior_subs_mins:
+                        subsidised_minutes = f.duration
+                        unsubsidised_minutes = 0
+                    else:
+                        subsidised_minutes = fee_model.junior_subs_mins
+                        unsubsidised_minutes = f.duration - fee_model.junior_subs_mins
+                    days_fee += (
+                        fee_model.junior_subs_launch_cost + subsidised_minutes * fee_model.junior_subs_minute_cost
+                        + unsubsidised_minutes * fee_model.junior_minute_cost)
             else:
                 # Not a junior
                 if f.is_train_launch_failure:
                     days_fee += fee_model.std_subs_tlf_cost
                 else:
-                    days_fee += fee_model.std_subs_launch_cost + f.duration * fee_model.std_subs_minute_cost
+                    if f.duration <= fee_model.std_subs_mins:
+                        subsidised_minutes = f.duration
+                        unsubsidised_minutes = 0
+                    else:
+                        subsidised_minutes = fee_model.std_subs_mins
+                        unsubsidised_minutes = f.duration - fee_model.std_subs_mins
+                    days_fee += (
+                        fee_model.std_subs_launch_cost + subsidised_minutes * fee_model.std_subs_minute_cost
+                        + unsubsidised_minutes * fee_model.std_minute_cost)
 
             f.invoiced_for = True
 

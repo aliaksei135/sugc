@@ -76,30 +76,6 @@
           <i>This is not a replacement for your logbook!</i>
           <div class="col-sm-12">
             {% render_table table %}
-            {#            <table class="table">#}
-            {#              <thead>#}
-            {#              <tr>#}
-            {#                <th scope="col">Date</th>#}
-            {#                <th scope="col">Aircraft</th>#}
-            {#                <th scope="col">Duration</th>#}
-            {#                <th scope="col">Pilot Capacity</th>#}
-            {#                <th scope="col">Training Launch Fail?</th>#}
-            {#                <th scope="col">Real Launch Fail?</th>#}
-            {#              </tr>#}
-            {#              </thead>#}
-            {#              <tbody>#}
-            {#              {% for flight in user.flights.all %}#}
-            {#                <tr>#}
-            {#                  <td>{{ flight.date|date:"D dS N Y" }}</td>#}
-            {#                  <td>{{ flight.aircraft.registration }}</td>#}
-            {#                  <td>{{ flight.duration }}</td>#}
-            {#                  <td>{{ flight.capacity }}</td>#}
-            {#                  <td>{{ flight.is_train_launch_failure }}</td>#}
-            {#                  <td>{{ flight.is_real_launch_failure }}</td>#}
-            {#                </tr>#}
-            {#              {% endfor %}#}
-            {#              </tbody>#}
-            {#            </table>#}
           </div>
         </div>
 
@@ -118,8 +94,8 @@
               <tbody>
               {% for invoice in user.unpaid_invoices.all %}
                 <tr>
-                  <td>{{ invoice.date|date:"D dS N Y" }}</td>
-                  <td>{{ invoice.balance }}</td>
+                  <td>{{ invoice.date|date:"d/m/Y" }}</td>
+                  <td>£{{ invoice.balance|floatformat:2 }}</td>
                 </tr>
               {% endfor %}
               </tbody>

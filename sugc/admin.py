@@ -1,5 +1,7 @@
-from django.contrib import admin
-from django.core.mail import send_mail
+from smtplib import SMTPException
+
+from django.contrib import admin, messages
+from django.core.mail import send_mail, BadHeaderError
 from django.urls import path
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
@@ -116,12 +118,17 @@ class FlyingListAdmin(admin.ModelAdmin):
     def email_flying_list(self, request, queryset):
         for flying_list in queryset:
             if isinstance(flying_list, FlyingList):
-                date_str = flying_list.date.strftime('%d/%m/%Y')
-                flying_list.driver.email_user('Flying {}'.format(date_str),
-                                              "You've been selected to drive for flying on {}".format(date_str),
-                                              )
-                send_mail('Flying {}'.format(date_str),
-                          "You've been selected for flying on {}".format(date_str),
-                          None,
-                          list(flying_list.members.all())
-                          )
+                try:
+                    date_str = flying_list.date.strftime('%d/%m/%Y')
+                    flying_list.driver.email_user('Flying {}'.format(date_str),
+                                                  "You've been selected to drive for flying on {}".format(date_str),
+                                                  )
+                    send_mail('Flying {}'.format(date_str),
+                              "You've been selected for flying on {}".format(date_str),
+                              None,
+                              list(flying_list.members.all())
+                              )
+
+                    messages.success(request, "Emails sent")
+                except (SMTPException, BadHeaderError) as e:
+                    messages.error(request, e)

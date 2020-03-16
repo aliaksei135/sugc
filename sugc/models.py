@@ -1,3 +1,5 @@
+from decimal import Decimal, ROUND_UP
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -51,8 +53,9 @@ class FlightModelManager(models.Manager):
                         + unsubsidised_minutes * fee_model.std_minute_cost)
 
             f.invoiced_for = True
+            f.save()
 
-        return days_fee
+        return Decimal(days_fee).quantize(Decimal('.01'), rounding=ROUND_UP)
 
 
 class FeesModelManager(models.Manager):

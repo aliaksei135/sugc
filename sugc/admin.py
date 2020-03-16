@@ -87,9 +87,9 @@ class FlightAdmin(ImportExportActionModelAdmin):
 
 @admin.register(FeesInvoice)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ['date', 'member', 'balance', 'paid']
+    list_display = ['paid', 'date', 'member', 'balance']
     list_filter = ['paid']
-    ordering = ['-date']
+    ordering = ['-date', 'member']
     search_fields = ['member']
 
 

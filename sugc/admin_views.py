@@ -6,6 +6,7 @@ from django.db.models import Count
 from django.shortcuts import render
 from django.urls import reverse
 
+import sugc.admin
 from sugc.admin_forms import FlyingListCreationForm
 from sugc.admin_tables import FlyingListDriversTable, FlyingListMembersTable
 from sugc.models import FlyingList
@@ -26,6 +27,12 @@ class FlyingListView(views.generic.CreateView):
 
     def get_success_url(self):
         return reverse('admin:sugc_flyinglist_changelist')
+
+    def post(self, request, *args, **kwargs):
+        response = super(FlyingListView, self).post(request, *args, **kwargs)
+        if '_saveandemail' in request.POST:
+            sugc.admin.email_flying_list(None, request, [self.object])
+        return response
 
 
 # Use AJAX to load drivers on a given day

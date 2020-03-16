@@ -93,9 +93,28 @@ class InvoiceAdmin(admin.ModelAdmin):
     search_fields = ['member']
 
 
+def email_flying_list(_, request, queryset):
+    for flying_list in queryset:
+        if isinstance(flying_list, FlyingList):
+            try:
+                date_str = flying_list.date.strftime('%d/%m/%Y')
+                flying_list.driver.email_user('Flying {}'.format(date_str),
+                                              "You've been selected to drive for flying on {}".format(date_str),
+                                              )
+                send_mail('Flying {}'.format(date_str),
+                          "You've been selected for flying on {}".format(date_str),
+                          None,
+                          list(flying_list.members.all())
+                          )
+
+                messages.success(request, "Emails sent")
+            except (SMTPException, BadHeaderError) as e:
+                messages.error(request, e)
+
+
 @admin.register(FlyingList)
 class FlyingListAdmin(admin.ModelAdmin):
-    actions = ['email_flying_list']
+    actions = [email_flying_list]
 
     def get_urls(self):
         my_urls = [
@@ -114,21 +133,3 @@ class FlyingListAdmin(admin.ModelAdmin):
             return default_response
         else:
             return FlyingListView.as_view()(default_response._request)
-
-    def email_flying_list(self, request, queryset):
-        for flying_list in queryset:
-            if isinstance(flying_list, FlyingList):
-                try:
-                    date_str = flying_list.date.strftime('%d/%m/%Y')
-                    flying_list.driver.email_user('Flying {}'.format(date_str),
-                                                  "You've been selected to drive for flying on {}".format(date_str),
-                                                  )
-                    send_mail('Flying {}'.format(date_str),
-                              "You've been selected for flying on {}".format(date_str),
-                              None,
-                              list(flying_list.members.all())
-                              )
-
-                    messages.success(request, "Emails sent")
-                except (SMTPException, BadHeaderError) as e:
-                    messages.error(request, e)

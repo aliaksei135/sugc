@@ -128,7 +128,7 @@ class Flight(models.Model):
 
 
 class FlyingList(models.Model):
-    date = models.DateField(_("Flying List Date"), blank=False, null=False)
+    date = models.DateField(_("Flying List Date"), blank=False, null=False, unique=True)
     driver = models.ForeignKey(user_model, on_delete=models.CASCADE)
     members = models.ManyToManyField(user_model, related_name='flyinglists')
 

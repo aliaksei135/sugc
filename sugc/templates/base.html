@@ -21,34 +21,36 @@
 
 <body>
 {% block root_body %}
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-sugc-blue">
-    <div class="container">
-      {% with navbar_drop='dropdown' %}
-        {% include '_navbar.html' %}
-      {% endwith %}
-    </div>
-  </nav>
+  <div class="content-container">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-sugc-blue">
+      <div class="container">
+        {% with navbar_drop='dropdown' %}
+          {% include '_navbar.html' %}
+        {% endwith %}
+      </div>
+    </nav>
 
-  {% block root_header %}
-    <header>
-      {% block header %}
-      {% endblock header %}
-    </header>
-  {% endblock root_header %}
+    {% block root_header %}
+      <header>
+        {% block header %}
+        {% endblock header %}
+      </header>
+    {% endblock root_header %}
 
-  {% block root_content %}
-    <!-- Page Content -->
-    <div class="container">
-      {% block content %}
-      {% endblock content %}
-    </div>
-    <!-- /.container -->
-  {% endblock root_content %}
+    {% block root_content %}
+      <!-- Page Content -->
+      <div class="container">
+        {% block content %}
+        {% endblock content %}
+      </div>
+      <!-- /.container -->
+    {% endblock root_content %}
+  </div>
 
   {% block root_footer %}
     <!-- Footer -->
-    <footer class="py-5 footer mt-3 bg-sugc-blue">
+    <footer class="py-5 mt-3 footer bg-sugc-blue">
       {% block footer %}
         <div class="container">
           <p class="m-0 text-center text-white">Copyright &copy; SUGC 2020</p>

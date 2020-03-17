@@ -8,6 +8,7 @@
   --sugc-gold-color: #ffbe4a;
 }
 
+
 body {
   padding-top: 5.34em;
 }
@@ -24,6 +25,14 @@ body {
 
 .portfolio-item {
   margin-bottom: 30px;
+}
+
+.content-container {
+  min-height: calc(100vh - 120px);
+}
+
+footer {
+  height: 120px !important;
 }
 
 .sugc-blue {

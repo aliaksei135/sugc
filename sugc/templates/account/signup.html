@@ -1,7 +1,7 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags bootstrap4 %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
@@ -19,5 +19,10 @@
     <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
   </form>
 
+{% endblock %}
+
+{% block js %}
+  {% bootstrap_javascript jquery='full' %}
+  {{ form.media }}
 {% endblock %}
 

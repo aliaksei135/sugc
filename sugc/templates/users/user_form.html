@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load bootstrap4 %}
 
-{% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-  <h1>{{ user.username }}</h1>
+  <h1>Change my details</h1>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
+    {% bootstrap_form_errors %}
     {% csrf_token %}
-    {{ form|crispy }}
+    {% bootstrap_form form %}
     <div class="control-group">
       <div class="controls">
         <button type="submit" class="btn btn-primary">Update</button>

@@ -17,6 +17,7 @@ django-photologue
 django-tables2
 django-import-export
 django-object-tools
+django-mail-templated
 
 # Django
 # ------------------------------------------------------------------------------

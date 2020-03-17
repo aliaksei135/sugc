@@ -1,0 +1,12 @@
+{% load account i18n %}
+{% user_display user as user_display %}
+{% autoescape off %}
+{% blocktrans %}
+Hi {{ user_display }}!
+
+Thanks for registering at Southampton University Gliding Club.
+To confirm this is correct, go to {{ activate_url }}
+
+Blue skies and strong thermals from SUGC!
+{% endblocktrans %}
+{% endautoescape %}

@@ -1,46 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_title %}A typical day{% endblock page_title %}
 
 {% block content %}
   <h1 class="mt-4 mb-3">A Typical Day</h1>
 
   <div class="row">
-    <div class="col-md-7">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">
+    <div class="col-md-4">
+      <img class="img-fluid rounded mb-3 mb-md-0" src="{% static 'images/meet.jpg' %}" alt="SUSU shop">
     </div>
-    <div class="col-md-5">
-      <h3>Apply for flying</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at
-        voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet
-        unde.</p>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <div class="col-md-7">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">
-    </div>
-    <div class="col-md-5">
-      <h3>Some flying stuff</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at
-        voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet
-        unde.</p>
+    <div class="col-md-8">
+      <h3>Meet up</h3>
+      <p>
+        On the morning of your flying day, we meet outside
+        <a href="https://data.southampton.ac.uk/building/57.html">The Shop on Redbrick, Highfield Campus</a>
+        at 0800. Please make sure you are there on time, otherwise your driver might have to leave without you!
+        Check out the <a href="{% url 'faq' %}">FAQ</a> for what you should bring along with you.
+      </p>
     </div>
   </div>
 
   <hr>
 
   <div class="row">
-    <div class="col-md-7">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">
+    <div class="col-md-4">
+      <img class="img-fluid rounded mb-3 mb-md-0" src="{% static 'images/setup.jpg' %}" alt="Shalbourne hangar">
     </div>
-    <div class="col-md-5">
-      <h3>Pay your fees</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at
-        voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet
-        unde.</p>
+    <div class="col-md-8">
+      <h3>Setup the airfield</h3>
+      <p>
+        After an approximately hour long drive up to the airfield, we help set up for the day of flying.
+        If you're new to gliding don't worry, you won't be asked to do anything you don't understand yet!
+        There are three main things that need setting up: the winch, the launch point and the gliders themselves.
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-fluid rounded mb-3 mb-md-0" src="{% static 'images/fly.jpg' %}" alt="Flying in a glider">
+    </div>
+    <div class="col-md-8">
+      <h3>Fly!</h3>
+      <p>
+        This bit shouldn't need any introduction!
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-fluid rounded mb-3 mb-md-0" src="{% static 'images/packup.jpg' %}" alt="Packing up the hangar">
+    </div>
+    <div class="col-md-8">
+      <h3>Pack back up</h3>
+      <p>
+        After flying, we need to put everything back as it was before we came and secure the gliders, so they are still
+        there next time we come! We make our way back after this is done.
+      </p>
+      <p>
+        <b>We ask that you contribute £5 towards the driver's costs, the club doesn't reimburse them for driving!</b>
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-fluid rounded mb-3 mb-md-0" src="{% static 'images/pay-fees.jpg' %}" alt="Glider with sunset">
+    </div>
+    <div class="col-md-8">
+      <h3>Pay your flying fees</h3>
+      <p>
+        As much as we would like to make your flying free, we can't :( . After your flying day, you should see a
+        corresponding
+        fees entry on your profile page. Please pay your fees in a timely manner!
+      </p>
+      <p>
+        Don't forget to make sure you've added some availability so you can go flying again!
+      </p>
     </div>
   </div>
 

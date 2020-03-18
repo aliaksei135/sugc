@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_title %}About Us{% endblock page_title %}
 
 {% block content %}
   <h1 class="mt-4 mb-3">About Us</h1>
 
-  <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
+  <img class="img-fluid rounded mb-4" src="{% static 'images/about-hero.jpg' %}" alt="Long Mynd sunset">
 
   <div class="row">
     <p>
       SUGC is the Southampton University Gliding Club. We are here to offer the best quality gliding at the best
-      price, while having a great day all in conjunction with each other! The Club re-established in 2015 and over
-      1000 tremendous flights have occurred since! SUGC glides at Shalbourne, which there is a link to on the
-      homepage. Gliding is suitable for anyone from any background from any degree! No knowledge needed! We have
-      weekly socials of great success along with some fantastic trips with other Uni’s and independent trips!
+      price, while having a great day! The Club re-established in 2015 and over
+      1000 tremendous flights have occurred since! SUGC flies at <a href="http://shalbournegliding.co.uk/">Shalbourne
+      Gliding Club</a>.
+      Gliding is suitable for anyone from any background from any degree! No knowledge needed! We fly as often as we
+      can,
+      we aim for 3 times a week, along with some fantastic trips with other Uni’s and independent trips!
     </p>
 
     <h3>Who is SUGC for?</h3>
@@ -29,7 +32,7 @@
   <div class="row">
     <div class="col-lg-3 col-sm-6 portfolio-item">
       <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <img class="card-img-top" src="{% static 'images/experience.jpg' %}" alt="Amazed by the flight">
         <div class="card-body">
           <h4 class="card-title">Experience</h4>
           <p class="card-text">
@@ -41,7 +44,7 @@
 
     <div class="col-lg-3 col-sm-6 portfolio-item">
       <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <img class="card-img-top" src="{% static 'images/train.jpg' %}" alt="Landing glider">
         <div class="card-body">
           <h4 class="card-title">Train</h4>
           <p class="card-text">
@@ -53,7 +56,7 @@
 
     <div class="col-lg-3 col-sm-6 portfolio-item">
       <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <img class="card-img-top" src="{% static 'images/achieve.jpg' %}" alt="Long Mynd busy ridge soaring">
         <div class="card-body">
           <h4 class="card-title">Achieve</h4>
           <p class="card-text">
@@ -65,7 +68,7 @@
 
     <div class="col-lg-3 col-sm-6 portfolio-item">
       <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+        <img class="card-img-top" src="{% static 'images/compete.jpg' %}" alt="Launch grid at Long Mynd">
         <div class="card-body">
           <h4 class="card-title">Compete</h4>
           <p class="card-text">

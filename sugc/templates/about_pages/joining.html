@@ -5,42 +5,47 @@
   <h1 class="mt-4 mb-3">Joining</h1>
 
   <div class="row">
-    <div class="col-md-7">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">
-    </div>
-    <div class="col-md-5">
-      <h3>Be eligible</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at
-        voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet
-        unde.</p>
+    {#    <div class="col-md-4">#}
+    {#      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">#}
+    {#    </div>#}
+    <div class="col-md-8">
+      <h3>Check you can join</h3>
+      <p>Make sure you are a member of the <a href="https://www.susu.org/about/membership.html">Students' Union</a></p>
     </div>
   </div>
 
   <hr>
 
   <div class="row">
-    <div class="col-md-7">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">
-    </div>
-    <div class="col-md-5">
-      <h3>Some SUSU stuff</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at
-        voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet
-        unde.</p>
+    {#    <div class="col-md-4">#}
+    {#      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">#}
+    {#    </div>#}
+    <div class="col-md-8">
+      <h3>Get a membership</h3>
+      <p>
+        Next, you will need to purchase a society "Full Membership" directly from SUSU. You can do this
+        <a href="https://www.susu.org/groups/sugc#fees">here</a>.
+      </p>
+      <p>
+        Unfortunately, we have a limit on our membership numbers for both safety reasons and to
+        ensure all members have the chance to fly. Sometimes, the society becomes over-subscribed and we have
+        to start a waiting list. We try to get through this as quickly as possible!
+      </p>
     </div>
   </div>
 
   <hr>
 
   <div class="row">
-    <div class="col-md-7">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">
-    </div>
-    <div class="col-md-5">
-      <h3>Join the waiting list lmao</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at
-        voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet
-        unde.</p>
+    {#    <div class="col-md-4">#}
+    {#      <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/300" alt="">#}
+    {#    </div>#}
+    <div class="col-md-8">
+      <h3>Register here</h3>
+      <p>
+        Finally, you'll need to register for a flying account <a href="{% url 'account_signup' %}">here</a>.
+        This is how we organise all the flying! Make sure you add some availability in order to be selected!
+      </p>
     </div>
   </div>
 {% endblock content %}

@@ -52,8 +52,25 @@
     <!-- Footer -->
     <footer class="py-5 mt-3 footer bg-sugc-blue">
       {% block footer %}
+        {#        <div class="container">#}
+        {#          <p class="m-0 text-center text-white">Copyright &copy; SUGC 2020</p>#}
+        {#        </div>#}
         <div class="container">
-          <p class="m-0 text-center text-white">Copyright &copy; SUGC 2020</p>
+          <div class="row">
+            <div class="col-md-6 align-center">
+              <span class="copyright text-center text-white">Copyright © SUGC 2020</span>
+            </div>
+            <div class="col-md-6">
+              <div class="rounded shadow-sm footer-social text-center">
+                <a href="https://www.facebook.com/sugliding" class="btn btn-light btn-circle"><i
+                        class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/southampton_gliding/" class="btn btn-light btn-circle"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="mailto:gliding@soton.ac.uk" class="btn btn-light btn-circle"><i
+                        class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+          </div>
         </div>
       {% endblock footer %}
       <!-- /.container -->

@@ -44,93 +44,96 @@
   {% endblock %}
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-sugc-blue">
-  <div class="container">
-    {% with navbar_drop='dropdown' %}
-      {% include '_navbar.html' %}
-    {% endwith %}
-  </div>
-</nav>
-{% block blog_header %}
-  <div class="about">
-    {% if blog_page.header_image %}
-      <span class="image featured">
+<div class="content-container">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-sugc-blue">
+    <div class="container">
+      {% with navbar_drop='dropdown' %}
+        {% include '_navbar.html' %}
+      {% endwith %}
+    </div>
+  </nav>
+  {% block blog_header %}
+    <div class="about">
+      {% if blog_page.header_image %}
+        <span class="image featured">
                 {% image blog_page.header_image fill-1500x120 as header_image %}
                 <img alt="{{ blog_page.header_image.title }}" src="{{ header_image.url }}">
             </span>
-    {% endif %}
-    <div class="container">
-      <section class="{% if blog_page.header_image %}title-section-image{% else %}title-section{% endif %}">
-        <h1 class="title-header">
-          <a href="{% pageurl blog_page %}">{{ blog_page.title }}</a>
-        </h1>
-        {% if not blog_page.header_image %}
-          <h2>{{ blog_page.description }}</h2>
-        {% endif %}
-      </section>
+      {% endif %}
+      <div class="container">
+        <section class="{% if blog_page.header_image %}title-section-image{% else %}title-section{% endif %}">
+          <h1 class="title-header">
+            <a href="{% pageurl blog_page %}">{{ blog_page.title }}</a>
+          </h1>
+          {% if not blog_page.header_image %}
+            <h2>{{ blog_page.description }}</h2>
+          {% endif %}
+        </section>
+      </div>
     </div>
-  </div>
-{% endblock blog_header %}
-{% wagtailuserbar %}
-<div class="container container-blog">
-  <div class="row">
-    <div class="col-sm-8 col-md-9">
-      {% block content %}{% endblock content %}
-      {% block extra_content %}{% endblock extra_content %}
-    </div>
+  {% endblock blog_header %}
+  {% wagtailuserbar %}
+  <div class="container container-blog">
+    <div class="row">
+      <div class="col-sm-8 col-md-9">
+        {% block content %}{% endblock content %}
+        {% block extra_content %}{% endblock extra_content %}
+      </div>
 
-    <div class="col-sm-4 col-md-3">
-      <div class="blog_sidebar">
-        <div class="rss-sitemap">
-          <a href="{% feeds_url blog_page %}" target="_blank" title="RSS">
-            <i class="fa fa-rss-square"></i> <span>{% trans 'Feed RSS' %}</span>
-          </a>
-        </div>
-        <form name="search_form" class="search_form" method="get"
-              action="{% routablepageurl blog_page 'entries_search' %}">
-          <div class="input-group">
-            <input type="search" name="q" placeholder="{% trans 'Search' %}">
-            <span class="input-group-btn">
+      <div class="col-sm-4 col-md-3">
+        <div class="blog_sidebar">
+          <div class="rss-sitemap">
+            <a href="{% feeds_url blog_page %}" target="_blank" title="RSS">
+              <i class="fa fa-rss-square"></i> <span>{% trans 'Feed RSS' %}</span>
+            </a>
+          </div>
+          <form name="search_form" class="search_form" method="get"
+                action="{% routablepageurl blog_page 'entries_search' %}">
+            <div class="input-group">
+              <input type="search" name="q" placeholder="{% trans 'Search' %}">
+              <span class="input-group-btn">
                             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                          </span>
-          </div>
-        </form>
+            </div>
+          </form>
 
-        {% if blog_page.display_last_entries %}
-          <ul class="sidebar">
-            <h4>{% trans 'Last Entries' %}</h4>
-            {% recent_entries blog_page.num_last_entries %}
-          </ul>
-        {% endif %}
-        {% if blog_page.display_popular_entries %}
-          <ul class="sidebar">
-            <h4>{% trans 'Popular Entries' %}</h4>
-            {% popular_entries blog_page.num_popular_entries %}
-          </ul>
-        {% endif %}
-        {% if blog_page.display_categories %}
-          <ul class="sidebar">
-            <h4>{% trans 'Categories' %}</h4>
-            {% categories_list %}
-          </ul>
-        {% endif %}
-        {% if blog_page.display_tags %}
-          <ul class="sidebar">
-            <h4>{% trans 'Tags' %}</h4>
-            {% tags_list %}
-          </ul>
-        {% endif %}
-        {% if blog_page.display_archive %}
-          <ul class="sidebar widget menu">
-            <h4>{% trans 'Archive' %}</h4>
-            {% archives_list %}
-          </ul>
-        {% endif %}
+          {% if blog_page.display_last_entries %}
+            <ul class="sidebar">
+              <h4>{% trans 'Last Entries' %}</h4>
+              {% recent_entries blog_page.num_last_entries %}
+            </ul>
+          {% endif %}
+          {% if blog_page.display_popular_entries %}
+            <ul class="sidebar">
+              <h4>{% trans 'Popular Entries' %}</h4>
+              {% popular_entries blog_page.num_popular_entries %}
+            </ul>
+          {% endif %}
+          {% if blog_page.display_categories %}
+            <ul class="sidebar">
+              <h4>{% trans 'Categories' %}</h4>
+              {% categories_list %}
+            </ul>
+          {% endif %}
+          {% if blog_page.display_tags %}
+            <ul class="sidebar">
+              <h4>{% trans 'Tags' %}</h4>
+              {% tags_list %}
+            </ul>
+          {% endif %}
+          {% if blog_page.display_archive %}
+            <ul class="sidebar widget menu">
+              <h4>{% trans 'Archive' %}</h4>
+              {% archives_list %}
+            </ul>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 <footer class="py-5 mt-3 footer bg-sugc-blue">
   {% block footer %}
     {#        <div class="container">#}

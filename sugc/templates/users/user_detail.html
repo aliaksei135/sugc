@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static bootstrap4 avatar_tags django_tables2 %}
 
+{% block page_title %}My Profile{% endblock page_title %}
+
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}

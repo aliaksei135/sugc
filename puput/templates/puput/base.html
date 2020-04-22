@@ -4,7 +4,7 @@
 <head>
   <title>
     {% block title %}
-      {{ blog_page.title }}{% if blog_page.description %} | {{ blog_page.description }}{% endif %}
+      Blog - Southampton University Gliding Club
     {% endblock title %}
   </title>
   <meta charset="utf-8"/>
@@ -22,6 +22,7 @@
                         {{ blog_page.search_description }}
                    {% endblock meta_description %}"/>
   {% block social_share %}{% endblock social_share %}
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
   <link rel="canonical" href="{% block canonical %}{% canonical_url %}{% endblock canonical %}"/>
 
   <!--[if lte IE 8]>
@@ -130,17 +131,37 @@
     </div>
   </div>
 </div>
-<div class="footer">
-
-  <div class="footer_bottom">
-    <div class="copy">
-      <p class="m-0 text-center text-white">Copyright &copy; SUGC 2020</p>
+<footer class="py-5 mt-3 footer bg-sugc-blue">
+  {% block footer %}
+    {#        <div class="container">#}
+    {#          <p class="m-0 text-center text-white">Copyright &copy; SUGC 2020</p>#}
+    {#        </div>#}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 align-center">
+          <span class="copyright text-center text-white">Copyright © SUGC 2020</span>
+        </div>
+        <div class="col-md-6">
+          <div class="rounded shadow-sm footer-social text-center">
+            <a href="https://www.facebook.com/sugliding" class="btn btn-light btn-circle"><i
+                    class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/southampton_gliding/" class="btn btn-light btn-circle"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="mailto:gliding@soton.ac.uk" class="btn btn-light btn-circle"><i
+                    class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  {% endblock footer %}
+  <!-- /.container -->
+</footer>
 {% block js %}
   {% bootstrap_javascript jquery='full' %}
   <script src="{% static 'puput/js/puput.js' %}"></script>
+  <script src="https://kit.fontawesome.com/081c6eecef.js" crossorigin="anonymous"></script>
 {% endblock js %}
 </body>
 </html>
+
+

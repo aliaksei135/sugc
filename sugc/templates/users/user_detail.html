@@ -29,8 +29,21 @@
       <br>
 
 
-      {% if object.waiting_list_position > 0 %}
-        <h3>You are #{{ object.waiting_list_position }} on the waiting list</h3>
+      {% if object.on_waiting_list %}
+        <div class="center-block m-5">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                 aria-valuenow="{{ object.waiting_list_position|slice:"2:3"|join:"" }}" aria-valuemin="0"
+                 aria-valuemax="{{ object.waiting_list_position|slice:"1:2"|join:"" }}"
+                 style="width:{{ object.waiting_list_position|slice:"2:3"|join:"" }}%">
+            </div>
+          </div>
+          <div class="text-center m-5">
+            <h2>You are #{{ object.waiting_list_position|slice:"0:1"|join:"" }} on the waiting
+              list{{ object.waiting_list_position }}</h2>
+            <p>We manage the waiting list manually, if you have just signed up please bare with us!</p>
+          </div>
+        </div>
       {% elif not object.has_susu_membership %}
         <h3>Please ensure you have purchased the correct SUSU membership <a
                 href="https://www.susu.org/groups/sugc#fees">here</a></h3>

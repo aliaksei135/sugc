@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 
 from config import celery_app
-from sugc.models import Flight, FeesInvoice, FlyingList
+from sugc.models import Flight, FlyingList
 
 user_model = get_user_model()
 
@@ -19,8 +19,7 @@ def calculate_invoices():
         member_ids_on_date = Flight.objects.filter(date=date).values_list('member', flat=True).distinct()
         for member_id in member_ids_on_date:
             member = user_model.objects.get(id=member_id)
-            fees = Flight.objects.get_fees_by_date(member, date)
-            FeesInvoice.objects.create(date=date, member=member, balance=fees).save()
+            Flight.objects.make_invoice_by_date(member, date)
 
     return True
 

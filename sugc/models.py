@@ -14,7 +14,7 @@ class FlightModelManager(models.Manager):
     def get_flights_by_date(self, user, date):
         return self.filter(member=user, date=date)
 
-    def get_fees_by_date(self, user, date):
+    def make_invoice_by_date(self, user, date):
         flights = self.get_flights_by_date(user, date)
         fee_model = GlidingFeePeriod.objects.get_fee_model_for_date(date)
         days_fee = 0.0
@@ -54,10 +54,12 @@ class FlightModelManager(models.Manager):
                         fee_model.std_subs_launch_cost + subsidised_minutes * fee_model.std_subs_minute_cost
                         + unsubsidised_minutes * fee_model.std_minute_cost)
 
-            f.invoiced_for = True
+        fees = Decimal(days_fee).quantize(Decimal('.01'), rounding=ROUND_UP)
+        invoice = FeesInvoice.objects.create(date=date, member=user, balance=fees)
+        invoice.save()
+        for f in flights:
+            f.invoice = invoice
             f.save()
-
-        return Decimal(days_fee).quantize(Decimal('.01'), rounding=ROUND_UP)
 
 
 class FeesModelManager(models.Manager):
@@ -131,7 +133,7 @@ class Flight(models.Model):
     date = models.DateField(_("Flight Date"), null=False, blank=False)
     aircraft = models.ForeignKey(Aircraft, on_delete=models.CASCADE)
 
-    member = models.ForeignKey(user_model, on_delete=models.CASCADE, related_name='flights')
+    member = models.ForeignKey(user_model, on_delete=models.PROTECT, related_name='flights')
 
     capacity = models.CharField(_("Pilot Capacity"), choices=PILOT_CAPACITY_CHOICES, default='P2', max_length=32)
     duration = models.DurationField(_("Flight Duration"), null=False, blank=False)
@@ -139,6 +141,7 @@ class Flight(models.Model):
     is_real_launch_failure = models.BooleanField(_("RLF?"), default=False)
 
     invoiced_for = models.BooleanField(_("Invoiced For"), editable=False, null=False, default=False)
+    invoice = models.ForeignKey(FeesInvoice, on_delete=models.PROTECT, blank=True, null=True)
 
     def __str__(self):
         return str(self.aircraft.registration) + ' ' + str(self.member.name) + ' ' + str(self.date)

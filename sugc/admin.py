@@ -1,14 +1,17 @@
 from smtplib import SMTPException
 
 from django.contrib import admin, messages
+from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, BadHeaderError
 from django.urls import path
-from import_export import resources
+from import_export import resources, widgets
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.fields import Field
 
 from sugc.admin_views import load_available_members, FlyingListView, load_available_drivers
 from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod
+
+user_model = get_user_model()
 
 
 # django-import-export ModelResources
@@ -16,13 +19,15 @@ from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePer
 
 class FlightResource(resources.ModelResource):
     id = Field(attribute='id', column_name='ID', saves_null_values=False)
-    date = Field(attribute='date', column_name='Date')
+    date = Field(attribute='date', column_name='Date', widget=widgets.DateWidget())
     day_id = Field(column_name='dayID', readonly=True)
     first_name = Field(column_name='firstName', readonly=True)
     last_name = Field(column_name='surname', readonly=True)
-    user_id = Field(attribute='member__id', column_name='userID', saves_null_values=False)
-    aircraft = Field(attribute='aircraft__registration', column_name='a/c', saves_null_values=False)
-    duration = Field(attribute='Duration', column_name='Duration')
+    user_id = Field(attribute='member', column_name='userID', saves_null_values=False,
+                    widget=widgets.ForeignKeyWidget(user_model, 'id'))
+    aircraft = Field(attribute='aircraft', column_name='a/c', saves_null_values=False,
+                     widget=widgets.ForeignKeyWidget(Aircraft, 'registration'))
+    duration = Field(attribute='duration', column_name='Duration')
     capacity = Field(attribute='capacity', column_name='Crew')
     friend_or_trial = Field(column_name='FriendOrTrial', readonly=True)
     trial = Field(column_name='Trial', readonly=True)
@@ -30,9 +35,9 @@ class FlightResource(resources.ModelResource):
     rlf = Field(attribute='is_real_launch_failure', column_name='RLF')
     badge_flight = Field(column_name='Badge flight', readonly=True)
     instructing = Field(column_name='Instructing')
-    xc_flight = Field(column_name='XC flight', readonly=True)
-    xc_distance = Field(column_name='XC Distance', readonly=True)
-    xc_comments = Field(column_name='Comments', readonly=True)
+    xc_flight = Field(column_name='XC flight', readonly=True, default='NO')
+    xc_distance = Field(column_name='XC Distance', readonly=True, default='')
+    xc_comments = Field(column_name='Comments', readonly=True, default='')
 
     class Meta:
         model = Flight

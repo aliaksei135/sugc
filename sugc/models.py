@@ -23,17 +23,19 @@ class FlightModelManager(models.Manager):
             if f.is_real_launch_failure:
                 continue
 
+            duration_mins = f.duration.seconds / 60
+
             if user.age < fee_model.std_age:
                 # Is a junior
                 if f.is_train_launch_failure:
                     days_fee += fee_model.junior_subs_tlf_cost
                 else:
-                    if f.duration <= fee_model.junior_subs_mins:
-                        subsidised_minutes = f.duration
+                    if duration_mins <= fee_model.junior_subs_mins:
+                        subsidised_minutes = duration_mins
                         unsubsidised_minutes = 0
                     else:
                         subsidised_minutes = fee_model.junior_subs_mins
-                        unsubsidised_minutes = f.duration - fee_model.junior_subs_mins
+                        unsubsidised_minutes = duration_mins - fee_model.junior_subs_mins
                     days_fee += (
                         fee_model.junior_subs_launch_cost + subsidised_minutes * fee_model.junior_subs_minute_cost
                         + unsubsidised_minutes * fee_model.junior_minute_cost)
@@ -42,12 +44,12 @@ class FlightModelManager(models.Manager):
                 if f.is_train_launch_failure:
                     days_fee += fee_model.std_subs_tlf_cost
                 else:
-                    if f.duration <= fee_model.std_subs_mins:
-                        subsidised_minutes = f.duration
+                    if duration_mins <= fee_model.std_subs_mins:
+                        subsidised_minutes = duration_mins
                         unsubsidised_minutes = 0
                     else:
                         subsidised_minutes = fee_model.std_subs_mins
-                        unsubsidised_minutes = f.duration - fee_model.std_subs_mins
+                        unsubsidised_minutes = duration_mins - fee_model.std_subs_mins
                     days_fee += (
                         fee_model.std_subs_launch_cost + subsidised_minutes * fee_model.std_subs_minute_cost
                         + unsubsidised_minutes * fee_model.std_minute_cost)
@@ -132,7 +134,7 @@ class Flight(models.Model):
     member = models.ForeignKey(user_model, on_delete=models.CASCADE, related_name='flights')
 
     capacity = models.CharField(_("Pilot Capacity"), choices=PILOT_CAPACITY_CHOICES, default='P2', max_length=32)
-    duration = models.IntegerField(_("Flight Duration [mins]"), null=False, blank=False)
+    duration = models.DurationField(_("Flight Duration"), null=False, blank=False)
     is_train_launch_failure = models.BooleanField(_("TLF?"), default=False)
     is_real_launch_failure = models.BooleanField(_("RLF?"), default=False)
 

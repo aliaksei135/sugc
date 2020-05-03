@@ -99,7 +99,7 @@ THIRD_PARTY_APPS = [
     'import_export',
     'django_tables2',
     'object_tools',
-    'mail_templated',
+    # 'mail_templated',
 ]
 
 LOCAL_APPS = [

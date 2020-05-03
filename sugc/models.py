@@ -141,7 +141,7 @@ class Flight(models.Model):
     is_real_launch_failure = models.BooleanField(_("RLF?"), default=False)
 
     invoiced_for = models.BooleanField(_("Invoiced For"), editable=False, null=False, default=False)
-    invoice = models.ForeignKey(FeesInvoice, on_delete=models.PROTECT, blank=True, null=True)
+    invoice = models.ForeignKey(FeesInvoice, on_delete=models.PROTECT, blank=True, null=True, related_name='flights')
 
     def __str__(self):
         return str(self.aircraft.registration) + ' ' + str(self.member.name) + ' ' + str(self.date)

@@ -1,9 +1,13 @@
 from smtplib import SMTPException
 
 from django.contrib import admin, messages
+from django.contrib.admin.templatetags.admin_urls import admin_urlname
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, BadHeaderError
+from django.shortcuts import resolve_url
 from django.urls import path
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from import_export import resources, widgets
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.fields import Field
@@ -86,16 +90,53 @@ class GlidingFeePeriodAdmin(ImportExportActionModelAdmin):
 class FlightAdmin(ImportExportActionModelAdmin):
     resource_class = FlightResource
     list_display = ['date', 'member', 'aircraft', 'capacity']
+    readonly_fields = ('inv', 'memb')
+    exclude = ('invoice', 'member')
     ordering = ['-date']
     search_fields = ['aircraft', 'date']
+
+    def inv(self, obj):
+        invoice = obj.invoice
+        if invoice is not FeesInvoice.objects.none:
+            url = resolve_url(admin_urlname(FeesInvoice._meta, 'change'), invoice.pk)
+            name = invoice.__str__()
+            return mark_safe('<a href="{url}">{name}</a>'.format(url=url, name=name))
+        else:
+            return 'Not invoiced'
+
+    inv.short_description = 'Invoice'
+
+    def memb(self, obj):
+        member = obj.member
+        url = resolve_url(admin_urlname(user_model._meta, 'change'), member.pk)
+        name = member.__str__()
+        return mark_safe('<a href="{url}">{name}</a>'.format(url=url, name=name))
+
+    memb.short_description = 'Member'
+
+
+def mark_paid(modeladmin, request, queryset):
+    queryset.update(paid=True)
 
 
 @admin.register(FeesInvoice)
 class InvoiceAdmin(admin.ModelAdmin):
     list_display = ['paid', 'date', 'member', 'balance']
     list_filter = ['paid']
+    readonly_fields = ('member', 'flights',)
     ordering = ['-date', 'member']
     search_fields = ['member']
+    actions = [mark_paid]
+
+    def flights(self, obj):
+        flights = obj.flights.all()
+        html_list = '<ul>'
+        for flight in flights:
+            url = resolve_url(admin_urlname(Flight._meta, 'change'), flight.pk)
+            name = flight.__str__()
+            html_list += format_html('<li><a href="{url}">{name}</a></li>'.format(url=url, name=name))
+        html_list += '</ul>'
+        return mark_safe(html_list)
 
 
 def email_flying_list(_, request, queryset):

@@ -46,9 +46,10 @@ class UserAdmin(ImportExportMixin, auth_admin.UserAdmin):
     availability_form = UserAvailabilityForm
     resource_class = UserResource
     fieldsets = (("Gliding", {"fields":
-        (
-            "has_susu_membership", "is_driver", "is_solo", "is_bronze", "is_xc", "date_of_birth")}),) \
-                + auth_admin.UserAdmin.fieldsets[1:]
-    list_display = ["first_name", "last_name", "is_staff", "has_susu_membership"]
+                                  ("has_susu_membership", "is_driver", "is_solo", "on_waiting_list", "is_bronze",
+                                   # noqa E127
+                                   "is_xc", "date_of_birth")}),
+                 ) + auth_admin.UserAdmin.fieldsets[1:]
+    list_display = ["first_name", "last_name", "is_staff", "has_susu_membership", "on_waiting_list"]
     search_fields = ["first_name", "last_name", "email"]
     ordering = ['last_name']

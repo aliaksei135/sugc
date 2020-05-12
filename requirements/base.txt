@@ -18,6 +18,9 @@ django-tables2
 django-import-export
 django-object-tools
 django-mail-templated
+dropbox
+django-storages
+django-dbbackup
 
 # Django
 # ------------------------------------------------------------------------------

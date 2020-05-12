@@ -47,6 +47,11 @@ DATABASES = {
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
+DBBACKUP_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'oauth2_access_token': env('DROPBOX_OAUTH_TOKEN'),
+}
+
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
@@ -99,7 +104,7 @@ THIRD_PARTY_APPS = [
     'import_export',
     'django_tables2',
     'object_tools',
-    # 'mail_templated',
+    'dbbackup',
 ]
 
 LOCAL_APPS = [

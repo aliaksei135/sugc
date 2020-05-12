@@ -1,4 +1,4 @@
-import os
+import os  # noqa
 
 from .base import *  # noqa
 from .base import env
@@ -59,3 +59,6 @@ CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+DBBACKUP_TMP_DIR = 'D:\\USERTEMP\\abc'
+DBBACKUP_HOSTNAME = 'DEV'

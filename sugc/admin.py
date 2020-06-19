@@ -90,8 +90,8 @@ class GlidingFeePeriodAdmin(ImportExportActionModelAdmin):
 class FlightAdmin(ImportExportActionModelAdmin):
     resource_class = FlightResource
     list_display = ['date', 'member', 'aircraft', 'capacity']
-    readonly_fields = ('inv', 'memb')
-    exclude = ('invoice', 'member')
+    readonly_fields = ('inv',)
+    exclude = ('invoice',)
     ordering = ['-date']
     search_fields = ['aircraft', 'date']
 

@@ -7,7 +7,7 @@
 {% block content %}
   <h1>Change my details</h1>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
-    {% bootstrap_form_errors %}
+    {% bootstrap_form_errors form %}
     {% csrf_token %}
     {% bootstrap_form form %}
     <div class="control-group">

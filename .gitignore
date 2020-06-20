@@ -316,8 +316,6 @@ Session.vim
 # Temporary
 .netrwhist
 
-# Auto-generated tag files
-tags
 
 
 ### VirtualEnv template
@@ -339,4 +337,3 @@ sugc/media/
 .pytest_cache/
 
 .idea/terminal.xml
-

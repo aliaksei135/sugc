@@ -13,7 +13,7 @@ from import_export.admin import ImportExportActionModelAdmin
 from import_export.fields import Field
 
 from sugc.admin_views import load_available_members, FlyingListView, load_available_drivers
-from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod
+from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod, GlidingFeeGroup
 
 user_model = get_user_model()
 
@@ -50,7 +50,7 @@ class FlightResource(resources.ModelResource):
 
 
 class GlidingFeePeriodResource(resources.ModelResource):
-    id = Field(attribute='id', column_name='feesLsistID')
+    id = Field(attribute='id', column_name='feesListID')
     start_date = Field(attribute='date_effective_from', column_name='startDate')
     end_date = Field(column_name='endDate', readonly=True)
 
@@ -84,6 +84,12 @@ admin.site.register(Aircraft)
 @admin.register(GlidingFeePeriod)
 class GlidingFeePeriodAdmin(ImportExportActionModelAdmin):
     resource_class = GlidingFeePeriodResource
+
+
+@admin.register(GlidingFeeGroup)
+class GlidingFeeGroupAdmin(admin.ModelAdmin):
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Flight)

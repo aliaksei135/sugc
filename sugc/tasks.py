@@ -11,7 +11,7 @@ user_model = get_user_model()
 
 @celery_app.task(name="Daily Invoice Calculation")
 def calculate_invoices():
-    flight_dates = Flight.objects.filter(invoiced_for=False).dates('date', 'day')
+    flight_dates = Flight.objects.filter(invoice__isnull=True).dates('date', 'day')
     if not flight_dates:
         return False
 

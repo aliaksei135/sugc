@@ -4,7 +4,7 @@
   <li>
     <i class="fa fa-user"></i>
     <a href="{% routablepageurl blog_page 'entries_by_author' entry.owner.username %}">
-      {{ entry.owner.username }}
+      {{ entry.owner.first_name }} {{ entry.owner.last_name|first }}
     </a>
   </li>
   <li>

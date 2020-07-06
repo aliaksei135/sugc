@@ -41,5 +41,11 @@ def make_flying_list(weekday=(5, 6), spaces=(5, 5)):
             list.members.add(selected_applicants)
 
 
+@celery_app.task(name='Database Backup')
+def db_backup():
+    from django.core.management import call_command
+    call_command('dbbackup')
+
+
 def send_flying_emails(driver, passengers):
     pass

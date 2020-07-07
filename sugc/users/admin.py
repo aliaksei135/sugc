@@ -9,7 +9,7 @@ from import_export.admin import ImportExportMixin
 from import_export.fields import Field
 
 from sugc.users import adapters
-from sugc.users.forms import UserChangeForm, UserCreationForm, UserAvailabilityForm
+from sugc.users.forms import UserChangeForm, UserAvailabilityForm
 
 User = get_user_model()
 
@@ -42,7 +42,6 @@ class UserResource(resources.ModelResource):
 @admin.register(User)
 class UserAdmin(ImportExportMixin, auth_admin.UserAdmin):
     form = UserChangeForm
-    add_form = UserCreationForm
     availability_form = UserAvailabilityForm
     resource_class = UserResource
     fieldsets = (("Gliding", {"fields":
@@ -53,3 +52,6 @@ class UserAdmin(ImportExportMixin, auth_admin.UserAdmin):
     list_display = ["first_name", "last_name", "is_staff", "has_susu_membership", "on_waiting_list"]
     search_fields = ["first_name", "last_name", "email"]
     ordering = ['last_name']
+
+    def has_add_permission(self, request):
+        return False

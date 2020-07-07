@@ -49,9 +49,9 @@ class UserAdmin(ImportExportMixin, auth_admin.UserAdmin):
                                    # noqa E127
                                    "is_xc", "date_of_birth")}),
                  ) + auth_admin.UserAdmin.fieldsets[1:]
-    list_display = ["first_name", "last_name", "is_staff", "has_susu_membership", "on_waiting_list"]
+    list_display = ["first_name", "last_name", "is_active", "has_susu_membership", "on_waiting_list"]
     search_fields = ["first_name", "last_name", "email"]
-    ordering = ['last_name']
+    ordering = ['-is_active', 'last_name']
 
     def has_add_permission(self, request):
         return False

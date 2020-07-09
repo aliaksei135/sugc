@@ -2,9 +2,12 @@ import object_tools
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+
+from config import sitemaps
 
 urlpatterns = [
                   path("gallery/", include(('photologue.urls', 'photologue'), namespace='photologue')),
@@ -30,6 +33,10 @@ urlpatterns = [
                   # CMS
                   # Cannot specify these in blog app due to wagtail namespace restrictions
                   path("blog/", include('puput.urls')),
+
+                  path('sitemap.xml', sitemap,
+                       {'sitemaps': {'main': sitemaps.MainSitemap, 'blog': sitemaps.BlogSitemap}},
+                       name='django.contrib.sitemaps.views.sitemap'),
 
                   path("", TemplateView.as_view(template_name="index.html"), name="home"),
 

@@ -33,6 +33,7 @@ class FlightModelManager(models.Manager):
                 for fee_group in f.aircraft.custom_fee_groups.all():
                     if eval(fee_group.applicability_condition):
                         fee_model = fee_group
+                        days_fee += fee_model.daily_cost
                         break
 
             if f.is_real_launch_failure:
@@ -88,6 +89,7 @@ class GlidingFeeGroup(models.Model):
     name = models.CharField(_("Fee Group Name"), max_length=40, null=False, blank=False)
     applicability_condition = models.CharField(_("Applicability Condition"), max_length=300, null=False, blank=False)
 
+    daily_cost = models.FloatField(_("Daily Rental Cost"), blank=False, null=False)
     launch_cost = models.FloatField(_("Actual Launch Cost"), blank=False, null=False)
     tlf_cost = models.FloatField(_("Actual TLF Cost"), blank=False, null=False)
     minute_cost = models.FloatField(_("Actual Minute Cost"), null=False, blank=False)

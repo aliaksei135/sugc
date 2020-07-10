@@ -17,6 +17,7 @@ class User(AbstractUser):
     student_id = models.IntegerField(_("Student ID Number"), null=True, blank=True)
 
     is_alumni = models.BooleanField(_("Alumni?"), default=False, null=False, blank=False)
+    is_third_party = models.BooleanField(_("Third Party?"), default=False, null=False, blank=False)
 
     is_solo = models.BooleanField(_("Solo?"), default=False)
     is_bronze = models.BooleanField(_("Bronze?"), default=False)

@@ -87,7 +87,8 @@ class FeesInvoice(models.Model):
 
 class GlidingFeeGroup(models.Model):
     name = models.CharField(_("Fee Group Name"), max_length=40, null=False, blank=False)
-    applicability_condition = models.CharField(_("Applicability Condition"), max_length=300, null=False, blank=False)
+    applicability_condition = models.CharField(_("Applicability Condition"), max_length=300, null=False, blank=False,
+                                               default='False')
 
     daily_cost = models.FloatField(_("Daily Rental Cost"), blank=False, null=False)
     launch_cost = models.FloatField(_("Actual Launch Cost"), blank=False, null=False)

@@ -26,6 +26,7 @@ class FlightModelManager(models.Manager):
             return
 
         days_fee = 0.0
+        daily_fees_added_for = []
         for f in flights:
             fee_model = std_fee_model
 
@@ -33,7 +34,9 @@ class FlightModelManager(models.Manager):
                 for fee_group in f.aircraft.custom_fee_groups.all():
                     if eval(fee_group.applicability_condition):
                         fee_model = fee_group
-                        days_fee += fee_model.daily_cost
+                        if f.aircraft.pk not in daily_fees_added_for:
+                            days_fee += fee_model.daily_cost
+                            daily_fees_added_for.append(f.aircraft.pk)
                         break
 
             if f.is_real_launch_failure:

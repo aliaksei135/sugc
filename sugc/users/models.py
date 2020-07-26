@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(AbstractUser):
@@ -15,7 +16,7 @@ class User(AbstractUser):
     on_waiting_list = models.BooleanField(_("On Waiting List?"), default=True)
     has_susu_membership = models.BooleanField(_("Has SUSU Membership?"), default=False)
     student_id = models.IntegerField(_("Student ID Number"), null=True, blank=True)
-    phone_number = models.IntegerField(_("Phone Number"), null=True, blank=False)
+    phone_number = PhoneNumberField(_("Phone Number"), null=True, blank=False)
 
     is_alumni = models.BooleanField(_("Alumni?"), default=False, null=False, blank=False)
     is_third_party = models.BooleanField(_("Third Party?"), default=False, null=False, blank=False)

@@ -23,6 +23,7 @@ django-storages
 django-dbbackup
 django-templated-email
 html2text
+django-phonenumber-field[phonenumberslite]
 
 # Django
 # ------------------------------------------------------------------------------

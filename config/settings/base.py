@@ -108,7 +108,8 @@ THIRD_PARTY_APPS = [
     'dbbackup',
     'anymail',
     'templated_email',
-    'html2text'
+    'html2text',
+    'phonenumber_field',
 ]
 
 LOCAL_APPS = [

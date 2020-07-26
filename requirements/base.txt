@@ -21,6 +21,8 @@ django-mail-templated
 dropbox
 django-storages
 django-dbbackup
+django-templated-email
+html2text
 
 # Django
 # ------------------------------------------------------------------------------

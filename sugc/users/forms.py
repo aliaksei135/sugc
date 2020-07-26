@@ -14,7 +14,7 @@ User = get_user_model()
 class UserChangeForm(forms.UserChangeForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'is_driver', 'student_id']
+        fields = ['first_name', 'last_name', 'email', 'is_driver', 'phone_number', 'student_id']
 
 
 class UserCreationForm(forms.UserCreationForm):
@@ -33,7 +33,7 @@ class UserCreationForm(forms.UserCreationForm):
 
     class Meta(forms.UserCreationForm.Meta):
         model = User
-        fields = ['first_name', 'last_name', 'student_id', 'date_of_birth']
+        fields = ['first_name', 'last_name', 'student_id', 'phone_number', 'date_of_birth']
 
     def clean_date_of_birth(self):
         dob = self.cleaned_data["date_of_birth"]

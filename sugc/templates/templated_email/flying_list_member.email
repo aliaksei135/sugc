@@ -1,0 +1,53 @@
+{% load static bootstrap4 %}
+
+{% block subject %} Flying {{ flying_date }}{% endblock subject %}
+
+{% block html %}
+  {% bootstrap_css %}
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-sugc-blue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/icon.webp' %}" width="80" height="59" class="d-inline-block align-top" alt="">
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <p><b>Hi {{ member.first_name }}</b></p>
+    <br>
+    <p>Thanks for applying to fly! You've been selected to fly on <b>{{ flying_date }}</b></p>
+    <p><b>{{ driver.first_name }}</b> will be driving, their phone number is {{ driver.phone_number }}.
+      <b>Please text your driver to confirm you are still planning to go by {{ deadline }}</b>, otherwise your place
+      may be given to someone else!</p>
+
+    <p>For those of you who are flying for the first time:</p>
+    <ul>
+      <li>Meet at the SUSU shop at 8 am on your day. Check your phone in the morning for any updates and do not be late
+        otherwise the driver will leave without you!
+      <li>If you cannot make it, please let your driver know ASAP so that they can find a replacement. It is very unfair
+        on those who are not selected to fly if you just don't turn up on the day or only cancel the evening before.
+      <li>If it is cold then it will be very cold and there is no food. Be sure to wrap up warm and take some lunch with
+        you. Take lots of removable layers as you will be out for the whole day, but can leave things in the car if they
+        aren't needed!
+      <li>If it looks sunny, take sunglasses and a sunhat. Sunglasses are essential when flying and you can still get
+        sunburnt on the airfield in the winter!
+      <li>Wear sensible shoes. Walking boots with thick socks are a safe bet. If you wear converse or flimsy trainers,
+        you will end up with cold wet feet for the whole day.
+      <li>Take £5 cash to give to your driver. They are paying for petrol themselves so we ask passengers to contribute
+        towards the driver's petrol. This is a separate payment to the flying fees, please don't include it on any
+        payments to SUGC!
+      <li>You don't need to take any money to pay for flying - you will be asked to pay by bank transfer after the
+        day/weekend.
+    </ul>
+
+    <p>Please let us know if you have any problems by replying to this email or getting in touch with one of the
+      committee.</p>
+    <p>We hope you have a great day!</p>
+
+    <p><b><i>SUGC</i></b></p>
+  </div>
+
+
+{% endblock html %}

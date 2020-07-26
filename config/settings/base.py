@@ -106,7 +106,9 @@ THIRD_PARTY_APPS = [
     'django_tables2',
     'object_tools',
     'dbbackup',
-    # 'mail_templated',
+    'anymail',
+    'templated_email',
+    'html2text'
 ]
 
 LOCAL_APPS = [

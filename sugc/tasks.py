@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.db.models import Count
+from templated_email import send_templated_mail
 
 from config import celery_app
 from sugc.models import Flight, FlyingList
@@ -35,10 +36,10 @@ def make_flying_list(weekday=(5, 6), spaces=(5, 5)):
             .order_by('availability__date_added')
         driver = applicants.filter(is_driver=True).first()
         selected_applicants = applicants[:day_spaces - 2]
-        send_flying_emails(driver, selected_applicants)
-        list, success = FlyingList.objects.get_or_create(date=date, driver=driver)
+        flying_list, success = FlyingList.objects.get_or_create(date=date, driver=driver)
         if success:
-            list.members.add(selected_applicants)
+            flying_list.members.add(selected_applicants)
+            send_flying_emails(flying_list)
 
 
 @celery_app.task(name='Database Backup')
@@ -47,5 +48,35 @@ def db_backup():
     call_command('dbbackup')
 
 
-def send_flying_emails(driver, passengers):
-    pass
+def send_flying_emails(flying_list: FlyingList):
+    prev = flying_list.date - datetime.timedelta(days=1)
+    t = datetime.time(hour=12, minute=0)
+    deadline = datetime.datetime.combine(prev, t).strftime('%H:%M %A %d %b')
+    flying_date = flying_list.date.strftime('%A %d %b')
+    dcontext = {
+        'flying_date': flying_date,
+        'driver': flying_list.driver,
+        'deadline': deadline,
+    }
+    if flying_list.members.all():
+        dcontext['members'] = flying_list.members.all()
+
+        for member in flying_list.members.all():
+            send_templated_mail(
+                template_name='flying_list_member',
+                from_email='gliding@soton.ac.uk',
+                recipient_list=[member.email],
+                context={
+                    'flying_date': flying_date,
+                    'driver': flying_list.driver,
+                    'member': member,
+                    'deadline': deadline,
+                }
+            )
+
+    send_templated_mail(
+        template_name='flying_list_driver',
+        from_email='gliding@soton.ac.uk',
+        recipient_list=[flying_list.driver.email],
+        context=dcontext,
+    )

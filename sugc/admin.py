@@ -3,7 +3,7 @@ from smtplib import SMTPException
 from django.contrib import admin, messages
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import BadHeaderError
 from django.shortcuts import resolve_url
 from django.urls import path
 from django.utils.html import format_html
@@ -14,6 +14,7 @@ from import_export.fields import Field
 
 from sugc.admin_views import load_available_members, FlyingListView, load_available_drivers
 from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod, GlidingFeeGroup
+from sugc.tasks import send_flying_emails
 
 user_model = get_user_model()
 
@@ -149,15 +150,17 @@ def email_flying_list(_, request, queryset):
     for flying_list in queryset:
         if isinstance(flying_list, FlyingList):
             try:
-                date_str = flying_list.date.strftime('%d/%m/%Y')
-                flying_list.driver.email_user('Flying {}'.format(date_str),
-                                              "You've been selected to drive for flying on {}".format(date_str),
-                                              )
-                send_mail('Flying {}'.format(date_str),
-                          "You've been selected for flying on {}".format(date_str),
-                          None,
-                          list(flying_list.members.all())
-                          )
+                # date_str = flying_list.date.strftime('%d/%m/%Y')
+                # flying_list.driver.email_user('Flying {}'.format(date_str),
+                #                               "You've been selected to drive for flying on {}".format(date_str),
+                #                               )
+                # send_mail('Flying {}'.format(date_str),
+                #           "You've been selected for flying on {}".format(date_str),
+                #           None,
+                #           list(flying_list.members.all())
+                #           )
+
+                send_flying_emails(flying_list)
 
                 messages.success(request, "Emails sent")
             except (SMTPException, BadHeaderError) as e:

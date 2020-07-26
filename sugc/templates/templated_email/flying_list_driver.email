@@ -1,0 +1,41 @@
+{% load static bootstrap4 %}
+
+{% block subject %} Flying {{ flying_date }}{% endblock subject %}
+
+{% block html %}
+  {% bootstrap_css %}
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-sugc-blue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/icon.webp' %}" width="80" height="59" class="d-inline-block align-top" alt="">
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <p><b>Hi {{ driver.first_name }}</b></p>
+    <br>
+    <p>Thank you for offering to drive on {{ flying_date }}. You've ben selected to take:</p>
+    <ul>
+      {% for member in members %}
+        <li>{{ member }}. Their number is {{ member.phone_number }}</li>
+      {% endfor %}
+    </ul>
+    <p>Everyone has been given your phone number and been asked to confirm they are still planning on coming
+      by {{ deadline }}.
+      If not everyone has confirmed, please let us know by replying to this email or getting in touch with one of the
+      committee.</p>
+
+    <p>Everyone has been reminded to give you £5 for driving costs.</p>
+
+    <p>Finally, <b>please remember to take a photo of the flying log at the end of the day</b></p>
+
+    <p>Once again thank you for driving and we hope you have a great day!</p>
+
+    <p><b><i>SUGC</i></b></p>
+  </div>
+
+
+{% endblock html %}

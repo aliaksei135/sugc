@@ -1,8 +1,6 @@
 import datetime
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Count
 from templated_email import send_templated_mail, InlineImage
 
@@ -56,7 +54,8 @@ def send_flying_emails(flying_list: FlyingList):
     deadline = datetime.datetime.combine(prev, t).strftime('%H:%M %A %d %b')
     flying_date = flying_list.date.strftime('%A %d %b')
 
-    with open(settings.STATIC_ROOT + static('images/icon.webp'), 'rb') as logo_file:
+    # TODO This is not good
+    with open('../../static/images/icon.webp', 'rb') as logo_file:
         logo = logo_file.read()
     logo_img = InlineImage(filename='icon.webp', content=logo)
 

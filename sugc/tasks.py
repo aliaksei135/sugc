@@ -1,8 +1,10 @@
 import datetime
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Count
-from templated_email import send_templated_mail
+from templated_email import send_templated_mail, InlineImage
 
 from config import celery_app
 from sugc.models import Flight, FlyingList
@@ -53,11 +55,18 @@ def send_flying_emails(flying_list: FlyingList):
     t = datetime.time(hour=12, minute=0)
     deadline = datetime.datetime.combine(prev, t).strftime('%H:%M %A %d %b')
     flying_date = flying_list.date.strftime('%A %d %b')
+
+    with open(settings.STATIC_ROOT + static('images/icon.webp', 'rb')) as logo_file:
+        logo = logo_file.read()
+    logo_img = InlineImage(filename='icon.webp', content=logo)
+
     dcontext = {
+        'logo': logo_img,
         'flying_date': flying_date,
         'driver': flying_list.driver,
         'deadline': deadline,
     }
+
     if flying_list.members.all():
         dcontext['members'] = flying_list.members.all()
 
@@ -67,6 +76,7 @@ def send_flying_emails(flying_list: FlyingList):
                 from_email='gliding@soton.ac.uk',
                 recipient_list=[member.email],
                 context={
+                    'logo': logo_img,
                     'flying_date': flying_date,
                     'driver': flying_list.driver,
                     'member': member,

@@ -175,7 +175,7 @@ class Flight(models.Model):
         return str(self.aircraft.registration) + ' ' + str(self.member.name) + ' ' + str(self.date)
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
 
 class FlyingList(models.Model):
@@ -187,7 +187,7 @@ class FlyingList(models.Model):
         return str(self.date) + ' List'
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
 
 class Availability(models.Model):

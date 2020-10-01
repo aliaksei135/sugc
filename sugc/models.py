@@ -71,7 +71,7 @@ class FeesModelManager(models.Manager):
     def get_fee_model_for_date(self, date):
         # Most recent fee model that is before the given date
         # model objects are sorted into descending date_effective_from order
-        return self.filter(date_effective_from__lte=date).last()
+        return self.filter(date_effective_from__lte=date).first()
 
 
 class FeesInvoice(models.Model):

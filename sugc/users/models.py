@@ -40,7 +40,7 @@ class User(AbstractUser):
     @property
     def waiting_list_position(self):
         if self.on_waiting_list:
-            waited_users = list(User.objects.filter(on_waiting_list=True).order_by('date_joined'))
+            waited_users = list(User.objects.filter(on_waiting_list=True, is_active=True).order_by('date_joined'))
             num_waited = len(waited_users)
             pos = waited_users.index(self) + 1
             return [pos, num_waited, num_waited - pos + 1]

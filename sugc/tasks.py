@@ -55,7 +55,7 @@ def send_flying_emails(flying_list: FlyingList):
     flying_date = flying_list.date.strftime('%A %d %b')
 
     # TODO This is not good
-    with open('../../static/images/icon.webp', 'rb') as logo_file:
+    with open('/home/aliakseipilko1/sugc/static/images/icon.webp', 'rb') as logo_file:
         logo = logo_file.read()
     logo_img = InlineImage(filename='icon.webp', content=logo)
 

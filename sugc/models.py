@@ -26,8 +26,9 @@ class FlightModelManager(models.Manager):
             return
 
         days_fee = 0.0
+        days_duration = 0.0
         daily_fees_added_for = []
-        for f in flights:
+        for idx, f in enumerate(flights):
             fee_model = std_fee_model
 
             if f.aircraft.is_club_aircraft:
@@ -43,19 +44,19 @@ class FlightModelManager(models.Manager):
                 continue
 
             duration_mins = f.duration.seconds / 60
+            days_duration += duration_mins
 
-            if f.is_train_launch_failure:
-                days_fee += fee_model.subs_tlf_cost
+            if (idx+1) % 3 == 0:
+                days_fee += duration_mins * fee_model.minute_cost
             else:
-                if duration_mins <= fee_model.subs_mins:
-                    subsidised_minutes = duration_mins
-                    unsubsidised_minutes = 0
+                if f.is_train_launch_failure:
+                    days_fee += fee_model.subs_tlf_cost
                 else:
-                    subsidised_minutes = fee_model.subs_mins
-                    unsubsidised_minutes = duration_mins - fee_model.subs_mins
-                days_fee += (
-                    fee_model.subs_launch_cost + subsidised_minutes * fee_model.subs_minute_cost
-                    + unsubsidised_minutes * fee_model.minute_cost)
+                    days_fee += (
+                        fee_model.subs_launch_cost + duration_mins * fee_model.minute_cost)
+
+        days_subs_duration = min(days_duration, fee_model.subs_mins)
+        days_fee -= days_subs_duration *(fee_model.minute_cost - fee_model.subs_minute_cost)
 
         fees = Decimal(days_fee).quantize(Decimal('.01'), rounding=ROUND_UP)
         invoice = FeesInvoice.objects.create(date=date, member=user, balance=fees)

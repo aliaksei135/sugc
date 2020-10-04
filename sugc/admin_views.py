@@ -40,7 +40,6 @@ def load_available_drivers(request):
     date = datetime.datetime.strptime(request.GET.get('date'), '%d/%m/%Y')
     available = User.objects.filter(availability__date_available=date) \
         .annotate(unpaid_invoice_count=Count('invoices')) \
-        .filter(unpaid_invoice_count__lte=3) \
         .order_by('availability__date_added')
     drivers = available.filter(is_driver=True)
     return render(request, 'admin/sugc/table_row.html', {'users': drivers, 'group': 'driver', 'input_type': 'radio'})
@@ -50,7 +49,6 @@ def load_available_members(request):
     date = datetime.datetime.strptime(request.GET.get('date'), '%d/%m/%Y')
     available = User.objects.filter(availability__date_available=date) \
         .annotate(unpaid_invoice_count=Count('invoices')) \
-        .filter(unpaid_invoice_count__lte=3) \
         .order_by('availability__date_added')
     return render(request, 'admin/sugc/table_row.html',
                   {'users': available, 'group': 'members', 'input_type': 'checkbox'})

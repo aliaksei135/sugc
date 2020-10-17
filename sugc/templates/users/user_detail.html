@@ -67,22 +67,31 @@
 
           <div class="col-sm-6">
             <h3>Current Availability</h3>
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">Available</th>
-                <th scope="col">Availability Added On</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for avail in avail_list %}
+            <form action="{% url 'users:delete_avail' %}" method="POST">
+              {% csrf_token %}
+              <table class="table">
+                <thead>
                 <tr>
-                  <td>{{ avail.date_available|date }}</td>
-                  <td>{{ avail.date_added|date }}</td>
+                  <th scope="col">Available</th>
+                  <th scope="col">Availability Added On</th>
+                  <th scope="col"></th>
                 </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                {% for avail in avail_list %}
+                  <tr>
+                    <td>{{ avail.date_available|date }}</td>
+                    <td>{{ avail.date_added|date }}</td>
+                    <td>
+                      <button type="submit" name="avail_pk" value="{{ avail.pk }}"
+                              class="text-center btn btn-default btn-sm btn-danger"><i class="fas fa-trash fa-sm"></i>
+                      </button>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </form>
           </div>
         </div>
         <hr>

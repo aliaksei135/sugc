@@ -58,7 +58,7 @@ class UserDetailView(LoginRequiredMixin, ModelFormMixin, SingleTableMixin, Detai
         avail = Availability(date_available=form.cleaned_data['date_available'], member=self.request.user)
         avail.save()
         messages.add_message(
-            self.request, messages.INFO, _("Availability updated")
+            self.request, messages.SUCCESS, _("Availability updated")
         )
         return HttpResponseRedirect(self.get_success_url())
 
@@ -78,7 +78,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         messages.add_message(
-            self.request, messages.INFO, _("Details successfully updated")
+            self.request, messages.SUCCESS, _("Details successfully updated")
         )
         return super().form_valid(form)
 
@@ -94,3 +94,13 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+
+def user_delete_avail_view(request, *args, **kwargs):
+    pk = request.POST.get('avail_pk')
+    avail = Availability.objects.filter(pk=pk, member=request.user)
+    avail.delete()
+    messages.add_message(
+        request, messages.SUCCESS, _("Availability deleted")
+    )
+    return HttpResponseRedirect(reverse("users:detail", kwargs={'username': request.user.username}))

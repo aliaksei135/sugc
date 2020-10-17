@@ -56,7 +56,7 @@ class FlightModelManager(models.Manager):
                         fee_model.subs_launch_cost + duration_mins * fee_model.minute_cost)
 
         days_subs_duration = min(days_duration, fee_model.subs_mins)
-        days_fee -= days_subs_duration *(fee_model.minute_cost - fee_model.subs_minute_cost)
+        days_fee -= days_subs_duration * (fee_model.minute_cost - fee_model.subs_minute_cost)
 
         fees = Decimal(days_fee).quantize(Decimal('.01'), rounding=ROUND_UP)
         invoice = FeesInvoice.objects.create(date=date, member=user, balance=fees)
@@ -200,3 +200,4 @@ class Availability(models.Model):
     class Meta:
         verbose_name = _("Available Day")
         verbose_name_plural = _("Availability")
+        ordering = ['date_available']

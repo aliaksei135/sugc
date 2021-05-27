@@ -54,13 +54,7 @@ def send_flying_emails(flying_list: FlyingList):
     deadline = datetime.datetime.combine(prev, t).strftime('%H:%M %A %d %b')
     flying_date = flying_list.date.strftime('%A %d %b')
 
-    # TODO This is not good
-    with open('/home/aliakseipilko1/sugc/static/images/icon.webp', 'rb') as logo_file:
-        logo = logo_file.read()
-    logo_img = InlineImage(filename='icon.webp', content=logo)
-
     dcontext = {
-        'logo': logo_img,
         'flying_date': flying_date,
         'driver': flying_list.driver,
         'deadline': deadline,

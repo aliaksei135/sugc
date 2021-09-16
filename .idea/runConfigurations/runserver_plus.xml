@@ -9,14 +9,14 @@
       <env name="CELERY_BROKER_URL" value="redis://localhost:6379/0" />
       <env name="DATABASE_URL" value="postgres://postgres:Barbed135@127.0.0.1:5432/sugc" />
     </envs>
-    <option name="SDK_HOME" value="D:\PycharmProjects\sugc\.envs\.local\venv\Scripts\python.exe" />
+    <option name="SDK_HOME" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    <option name="IS_MODULE_SDK" value="false" />
+    <option name="IS_MODULE_SDK" value="true" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <option name="launchJavascriptDebuger" value="false" />
     <option name="port" value="8000" />
-    <option name="host" value="0.0.0.0" />
+    <option name="host" value="localhost" />
     <option name="additionalOptions" value="" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />

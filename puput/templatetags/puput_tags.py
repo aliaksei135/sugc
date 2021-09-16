@@ -5,8 +5,8 @@ from django.urls import resolve
 from django_social_share.templatetags.social_share import _build_url
 from el_pagination.templatetags.el_pagination_tags import show_pages, paginate
 
-from ..models import Category, Tag
-from ..urls import get_entry_url, get_feeds_url
+from .. import models
+from .. import urls
 
 register = Library()
 
@@ -37,7 +37,7 @@ def tags_list(context, limit=None, tags_qs=None):
     if tags_qs:
         tags = tags_qs.all()
     else:
-        tags = Tag.objects.most_common(blog_page)
+        tags = models.Tag.objects.most_common(blog_page)
     if limit:
         tags = tags[:limit]
     context['tags'] = tags
@@ -50,7 +50,7 @@ def categories_list(context, categories_qs=None):
     if categories_qs:
         categories = categories_qs.all()
     else:
-        categories = Category.objects.with_uses(blog_page).filter(parent=None)
+        categories = models.Category.objects.with_uses(blog_page).filter(parent=None)
     context['categories'] = categories
     return context
 
@@ -64,7 +64,7 @@ def archives_list(context):
 
 @register.simple_tag(takes_context=True)
 def entry_url(context, entry, blog_page):
-    return get_entry_url(entry, blog_page.page_ptr, context['request'].site.root_page)
+    return urls.get_entry_url(entry, blog_page.page_ptr, context['request'].site.root_page)
 
 
 @register.simple_tag(takes_context=True)
@@ -81,7 +81,7 @@ def image_url(context, url):
 
 @register.simple_tag(takes_context=True)
 def feeds_url(context, blog_page):
-    return get_feeds_url(blog_page.page_ptr, context['request'].site.root_page)
+    return urls.get_feeds_url(blog_page.page_ptr, context['request'].site.root_page)
 
 
 @register.simple_tag(takes_context=True)

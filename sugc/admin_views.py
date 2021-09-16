@@ -1,10 +1,9 @@
 import datetime
 
-from django import views
 from django.contrib.auth import get_user_model
 from django.db.models import Count
 from django.shortcuts import render
-from django.urls import reverse
+from django.views.generic import CreateView
 
 import sugc.admin
 from sugc.admin_forms import FlyingListCreationForm
@@ -14,19 +13,17 @@ from sugc.models import FlyingList
 User = get_user_model()
 
 
-class FlyingListView(views.generic.CreateView):
+class FlyingListView(CreateView):
     model = FlyingList
     template_name = 'admin/sugc/flying.html'
     form_class = FlyingListCreationForm
+    http_method_names = ['get', 'post']
 
     def get_context_data(self, **kwargs):
         context = super(FlyingListView, self).get_context_data(**kwargs)
         context['drivers_table'] = FlyingListDriversTable(User.objects.none())
         context['members_table'] = FlyingListMembersTable(User.objects.none())
         return context
-
-    def get_success_url(self):
-        return reverse('admin:sugc_flyinglist_changelist')
 
     def post(self, request, *args, **kwargs):
         response = super(FlyingListView, self).post(request, *args, **kwargs)

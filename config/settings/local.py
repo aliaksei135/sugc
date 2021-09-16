@@ -1,5 +1,7 @@
 import os  # noqa
 
+from django_extensions.settings import BASE_DIR
+
 from .base import *  # noqa
 from .base import env
 
@@ -59,5 +61,9 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-DBBACKUP_TMP_DIR = 'D:\\USERTEMP\\abc'
-DBBACKUP_HOSTNAME = 'DEV'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'debug.sqlite3'),
+    }
+}

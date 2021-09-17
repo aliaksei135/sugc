@@ -3,7 +3,7 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
@@ -104,3 +104,11 @@ def user_delete_avail_view(request, *args, **kwargs):
         request, messages.SUCCESS, _("Availability deleted")
     )
     return HttpResponseRedirect(reverse("users:detail", kwargs={'username': request.user.username}))
+
+
+def user_onboarding_submit(request):
+    user = request.user
+    user.has_completed_onboarding = True
+    user.save()
+    # return reverse("users:detail", kwargs={"username": request.user.username})
+    return HttpResponse()

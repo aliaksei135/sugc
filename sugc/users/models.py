@@ -15,6 +15,8 @@ class User(AbstractUser):
 
     on_waiting_list = models.BooleanField(_("On Waiting List?"), default=True)
     has_susu_membership = models.BooleanField(_("Has SUSU Membership?"), default=False)
+    has_completed_onboarding = models.BooleanField(_("Has completed the onboarding forms?"), default=False)
+
     student_id = models.IntegerField(_("Student ID Number"), null=True, blank=True)
     phone_number = PhoneNumberField(_("Phone Number"), null=True, blank=False)
 
@@ -63,6 +65,14 @@ class User(AbstractUser):
     @property
     def unpaid_invoices(self):
         return self.invoices.filter(paid=False)
+
+    @property
+    def unpaid_amount(self):
+        unpaid_invoices = self.invoices.filter(paid=False)
+        acc = 0.0
+        for inv in unpaid_invoices:
+            acc += inv.balance
+        return acc
 
     def __str__(self):
         return self.name

@@ -1,7 +1,5 @@
 import os  # noqa
 
-from django_extensions.settings import BASE_DIR
-
 from .base import *  # noqa
 from .base import env
 
@@ -60,6 +58,8 @@ CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+from django_extensions.settings import BASE_DIR  # noqa E402
 
 DATABASES = {
     'default': {

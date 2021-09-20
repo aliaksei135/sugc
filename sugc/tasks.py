@@ -66,7 +66,7 @@ def send_flying_emails(flying_list: FlyingList):
         for member in flying_list.members.all():
             send_templated_mail(
                 template_name='flying_list_member',
-                from_email='gliding@soton.ac.uk',
+                from_email='flying@sugc.net',
                 recipient_list=[member.email],
                 context={
                     'flying_date': flying_date,
@@ -78,7 +78,7 @@ def send_flying_emails(flying_list: FlyingList):
 
     send_templated_mail(
         template_name='flying_list_driver',
-        from_email='gliding@soton.ac.uk',
+        from_email='flying@sugc.net',
         recipient_list=[flying_list.driver.email],
         context=dcontext,
     )

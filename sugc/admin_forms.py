@@ -16,12 +16,6 @@ class FlyingListCreationForm(forms.ModelForm):
         self.fields['date'].input_formats = ['%d/%m/%Y']
         self.fields['date'].widget = DatePickerInput(format='%d/%m/%Y')
 
-    def is_valid(self):
-        return super().is_valid()
-
-    def clean(self):
-        return super().clean()
-
     class Meta:
         model = FlyingList
         fields = ['date', 'driver', 'members']

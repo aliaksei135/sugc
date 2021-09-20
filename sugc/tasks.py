@@ -69,7 +69,6 @@ def send_flying_emails(flying_list: FlyingList):
                 from_email='gliding@soton.ac.uk',
                 recipient_list=[member.email],
                 context={
-                    'logo': logo_img,
                     'flying_date': flying_date,
                     'driver': flying_list.driver,
                     'member': member,

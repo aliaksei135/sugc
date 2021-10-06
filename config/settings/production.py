@@ -14,6 +14,8 @@ DATABASES["default"] = env.db("PROD_DATABASE_URL")  # noqa F405
 DATABASES["default"]["ATOMIC_REQUESTS"] = True  # noqa F405
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
 
+FIXTURE_DIRS= ''
+
 # STATIC
 # ------------------------------------------------------------------------------
 STATIC_ROOT = '../static/'
@@ -68,7 +70,7 @@ TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa F405
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL", default="Southampton University Gliding Club <gliding@soton.ac.uk>"
+    "DJANGO_DEFAULT_FROM_EMAIL", default="Southampton University Gliding Club <sugc@sugc.net>"
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)

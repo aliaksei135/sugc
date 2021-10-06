@@ -182,9 +182,8 @@ class FlyingListAdmin(admin.ModelAdmin):
         return my_urls + super().get_urls()
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
-        default_response = super(FlyingListAdmin, self).render_change_form(request, context, add=add,
-                                                                           change=change, form_url=form_url, obj=obj)
         if not add:
-            return default_response
+            return super(FlyingListAdmin, self).render_change_form(request, context, add=add,
+                                                                   change=change, form_url=form_url, obj=obj)
         else:
-            return FlyingListView.as_view()(default_response._request)
+            return FlyingListView.as_view()(request)

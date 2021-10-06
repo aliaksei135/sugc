@@ -6,8 +6,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["sugc.net",
-                                                          "www.sugc.net"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["sugc.net"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -78,6 +77,8 @@ EMAIL_SUBJECT_PREFIX = env(
     "DJANGO_EMAIL_SUBJECT_PREFIX", default=""
 )
 
+#ACCOUNT_EMAIL_VERIFICATION='none'
+
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
@@ -86,11 +87,13 @@ ADMIN_URL = 'admin/'
 # Anymail (Mailgun)
 # ------------------------------------------------------------------------------
 # https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
-EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+#EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 ANYMAIL = {
-    "MAILJET_API_KEY": env("MAILJET_API_KEY"),
-    "MAILJET_SECRET_KEY": env("MAILJET_SECRET_KEY"),
+#    "MAILJET_API_KEY": env("MAILJET_API_KEY"),
+#    "MAILJET_SECRET_KEY": env("MAILJET_SECRET_KEY"),
+     "SENDGRID_API_KEY": env("SENDGRID_API_KEY"),
 }
 
 #TEMPLATED_EMAIL_BACKEND = EMAIL_BACKEND

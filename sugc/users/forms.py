@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from bootstrap_datepicker_plus import DatePickerInput
 from django import forms as dj_forms
@@ -7,6 +8,8 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from sugc.models import Availability
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -41,9 +44,10 @@ class UserCreationForm(forms.UserCreationForm):
             return dob
         raise ValidationError(self.error_messages["dob_in_future"], code='dob_in_future')
 
-    def save(self, commit=True):
-        # saved in adapter
-        pass
+    def _post_clean(self):
+        super(UserCreationForm, self)._post_clean()
+        if self.errors:
+            logger.info(self.errors)
 
 
 class UserAvailabilityForm(dj_forms.ModelForm):

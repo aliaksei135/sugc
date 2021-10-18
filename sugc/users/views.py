@@ -46,6 +46,8 @@ class UserDetailView(LoginRequiredMixin, ModelFormMixin, SingleTableMixin, Detai
                                                                                      + datetime.timedelta(weeks=2)
                                                                                      )
                                                                 )
+        if self.request.user.phone_number is None:
+            messages.add_message(self.request, messages.WARNING, "Please add a phone number to your profile!")
         # flights_table = FlightTable(self.object.flights.all())
         # flights_table.paginate(page=self.request.GET.get('flights_page', 1), per_page=10)
         # context['table'] = flights_table

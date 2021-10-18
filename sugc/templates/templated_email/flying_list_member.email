@@ -10,11 +10,13 @@
     <br>
     <p>Thanks for applying to fly! You've been selected to fly on <b>{{ flying_date }}</b></p>
     <p><b>{{ driver.first_name }}</b> will be driving, their phone number is {{ driver.phone_number }}.
-      <b>Please text your driver to confirm you are still planning to go by {{ deadline }}</b>, otherwise your place
+      <b>Please text your driver to confirm you are still planning to go by <b>{{ deadline }}</b>, otherwise your place
       may be given to someone else!</p>
 
     <p>For those of you who are flying for the first time:</p>
     <ul>
+      <li><b>You must have done a negative COVID test up to 2 days before going flying. You must also wear a mask within
+        the glider.</b>
       <li>Meet at the SUSU shop at 8 am on your day. Check your phone in the morning for any updates and do not be late
         otherwise the driver will leave without you!
       <li>If you cannot make it, please let your driver know ASAP so that they can find a replacement. It is very unfair

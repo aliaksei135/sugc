@@ -8,9 +8,11 @@ from django.shortcuts import resolve_url
 from django.urls import path
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from durationwidget.widgets import TimeDurationWidget
 from import_export import resources, widgets
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.fields import Field
+from django.db import models
 
 from sugc.admin_views import load_available_members, FlyingListView, load_available_drivers
 from sugc.models import FeesInvoice, Flight, FlyingList, Aircraft, GlidingFeePeriod, GlidingFeeGroup
@@ -101,6 +103,9 @@ class FlightAdmin(ImportExportActionModelAdmin):
     exclude = ('invoice',)
     ordering = ['-date']
     search_fields = ['aircraft', 'date']
+    formfield_overrides = {
+        models.DurationField: {'widget': TimeDurationWidget(show_days=False)}
+    }
 
     def inv(self, obj):
         invoice = obj.invoice

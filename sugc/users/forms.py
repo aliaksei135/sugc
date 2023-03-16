@@ -25,6 +25,7 @@ class UserCreationForm(forms.UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_birth'].input_formats = ['%d/%m/%Y']
         self.fields['date_of_birth'].widget = DatePickerInput(format='%d/%m/%Y',
                                                               attrs={'class': 'form-control'},
                                                               options={

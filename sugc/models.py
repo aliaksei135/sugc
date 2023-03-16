@@ -46,7 +46,7 @@ class FlightModelManager(models.Manager):
             duration_mins = f.duration.seconds / 60
             days_duration += duration_mins
 
-            if (idx+1) % 3 == 0:
+            if (idx + 1) % 3 == 0:
                 days_fee += duration_mins * fee_model.minute_cost
             else:
                 if f.is_train_launch_failure:
@@ -159,6 +159,8 @@ class Aircraft(models.Model):
 class Flight(models.Model):
     PILOT_CAPACITY_CHOICES = [('P1', _('P1')), ('P2', _('P2')), ('EX', _('Examiner')), ('INS', _('Instructor'))]
     objects = FlightModelManager()
+
+    import_hash = models.IntegerField(_("Import Hash"), null=True, blank=True, editable=False)
 
     date = models.DateField(_("Flight Date"), null=False, blank=False)
     aircraft = models.ForeignKey(Aircraft, on_delete=models.PROTECT)

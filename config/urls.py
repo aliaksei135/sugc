@@ -32,7 +32,7 @@ urlpatterns = [
                   path("avatar/", include('avatar.urls')),
                   # CMS
                   # Cannot specify these in blog app due to wagtail namespace restrictions
-                  path("blog/", include('puput.urls')),
+                  # path("blog/", include('puput.urls')),
 
                   path('sitemap.xml', sitemap,
                        {'sitemaps': {'main': sitemaps.MainSitemap, 'blog': sitemaps.BlogSitemap}},
